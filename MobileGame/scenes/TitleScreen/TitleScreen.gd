@@ -9,19 +9,28 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("starting")
-	$EasyModeTouchScreenButton.connect("pressed", self, "_on_easy_mode_pressed")
-	$MediumModeTouchScreenButton.connect("pressed", self, "_on_medium_mode_pressed")
-	$HardModeTouchScreenButton.connect("pressed", self, "_on_hard_mode_pressed")
-	
+	$EasyModeTouchScreenButton.pressed.connect(_on_easy_mode_pressed)
+	$MediumModeTouchScreenButton.pressed.connect(_on_medium_mode_pressed)
+	$HardModeTouchScreenButton.pressed.connect(_on_hard_mode_pressed)
+	#$EasyModeTouchScreenButton.is_pressed(self._on_easy_mode_pressed())
+	#$MediumModeTouchScreenButton.is_pressed(self._on_medium_mode_pressed())
+	#$HardModeTouchScreenButton.is_pressed(self._on_hard_mode_pressed())
+
+#func _process(delta):
+#	if ($HardModeTouchScreenButton.is_pressed()):
+#		print("hard mode pressed")
 
 func _on_easy_mode_pressed():
-	SceneLoader.goto_scene("res://scenes/MainGame/MainGame.tscn")
+	print("easy pressed")
+	get_tree().change_scene_to_file("res://scenes/MainGame/MainGame.tscn")
 	PersistentData.mode = "easy"
 
 func _on_medium_mode_pressed():
-	SceneLoader.goto_scene("res://scenes/MainGame/MainGame.tscn")
+	print("medium pressed")
+	get_tree().change_scene_to_file("res://scenes/MainGame/MainGame.tscn")
 	PersistentData.mode = "medium"
 
 func _on_hard_mode_pressed():
-	SceneLoader.goto_scene("res://scenes/MainGame/MainGame.tscn")
+	print("hard pressed")
+	get_tree().change_scene_to_file("res://scenes/MainGame/MainGame.tscn")
 	PersistentData.mode = "hard"

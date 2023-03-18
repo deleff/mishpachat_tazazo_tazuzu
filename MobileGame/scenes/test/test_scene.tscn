@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj0f5cuw44ntf"]
+
+[ext_resource type="Script" path="res://scenes/test/test_scene.gd" id="1_hkpj1"]
+
+[node name="testScene" type="Node2D"]
+script = ExtResource("1_hkpj1")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
