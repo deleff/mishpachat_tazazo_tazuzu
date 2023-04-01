@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://csvmo7ycecrp0"]
+
+[ext_resource type="FontFile" uid="uid://bcr56hh15u6rx" path="res://fonts/Arial.ttf" id="1_3rqpc"]
+
+[resource]
+default_font = ExtResource("1_3rqpc")
+default_font_size = 50
