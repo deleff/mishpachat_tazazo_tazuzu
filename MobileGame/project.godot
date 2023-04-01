@@ -6,25 +6,35 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=5
+config_version=4
 
 [application]
 
 config/name="mishpachat_tazazo_tazuzu"
 run/main_scene="res://scenes/TitleScreen/TitleScreen.tscn"
-config/features=PackedStringArray("4.0", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [autoload]
 
-PersistentData="*res://global/PersistentData.gd"
 SceneLoader="*res://global/SceneLoader.gd"
+PersistentData="*res://global/PersistentData.gd"
 
 [display]
 
-window/size/viewport_width=1366
-window/size/viewport_height=768
+window/size/width=1280
+window/size/height=720
+window/size/test_width=640
+window/size/test_height=360
+window/stretch/aspect="expand"
 
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
