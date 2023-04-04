@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://5olokxyrglpm"]
+[gd_scene load_steps=18 format=3 uid="uid://5olokxyrglpm"]
 
 [ext_resource type="Script" path="res://characters/spider_man_2/spider_man.gd" id="1_48jty"]
 [ext_resource type="Texture2D" uid="uid://ctdsbrwpfu6cw" path="res://characters/spider_man_2/sprites/chest.png" id="2_lal3q"]
@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://c35d8a11qqa32" path="res://characters/spider_man_2/sprites/left_foot.png" id="10_o3n3v"]
 [ext_resource type="Texture2D" uid="uid://b45klou4glna5" path="res://characters/spider_man_2/sprites/right_thigh.png" id="11_rgcu0"]
 [ext_resource type="Texture2D" uid="uid://g2xhbsx244sn" path="res://characters/spider_man_2/sprites/right_foot.png" id="12_ye5kc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_42s2c"]
+radius = 44.635
+height = 112.17
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g66t0"]
 radius = 500.0
@@ -562,7 +566,13 @@ _data = {
 scale = Vector2(0.8, 0.8)
 script = ExtResource("1_48jty")
 
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(5, 187.5)
+scale = Vector2(6.28989, 5.79327)
+shape = SubResource("CapsuleShape2D_42s2c")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3.75006, 182.5)
 scale = Vector2(0.7, 0.7)
 shape = SubResource("CapsuleShape2D_g66t0")
 disabled = true

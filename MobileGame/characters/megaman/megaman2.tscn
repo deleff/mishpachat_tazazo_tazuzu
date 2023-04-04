@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bsgocojuy3mef"]
+[gd_scene load_steps=18 format=3 uid="uid://bsgocojuy3mef"]
 
 [ext_resource type="Texture2D" uid="uid://7gef0so3gtn1" path="res://characters/megaman/sprites/chest.png" id="1_0kqhu"]
 [ext_resource type="Script" path="res://characters/megaman/megaman2.gd" id="1_yapdb"]
@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://c5phrmcklemj6" path="res://characters/megaman/sprites/left_foot.png" id="9_em8e0"]
 [ext_resource type="Texture2D" uid="uid://b8yodpcomtkku" path="res://characters/megaman/sprites/right_thigh.png" id="10_mu3ab"]
 [ext_resource type="Texture2D" uid="uid://826xavnf4vc4" path="res://characters/megaman/sprites/right_foot.png" id="11_djqme"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7ntud"]
+radius = 418.94
+height = 886.95
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y25pa"]
 radius = 500.0
@@ -561,7 +565,12 @@ _data = {
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 scale = Vector2(0.3, 0.3)
+input_pickable = true
 script = ExtResource("1_yapdb")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(-30, 63.3334)
+shape = SubResource("CapsuleShape2D_7ntud")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_y25pa")
