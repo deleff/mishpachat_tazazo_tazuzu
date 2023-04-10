@@ -569,7 +569,6 @@ script = ExtResource("1_1qtjw")
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
 position = Vector2(0, 87.5)
-scale = Vector2(1, 1)
 shape = SubResource("CapsuleShape2D_a1l67")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

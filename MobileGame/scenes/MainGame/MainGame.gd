@@ -13,24 +13,47 @@ var family_member_direction_y: int
 var family_member_count = 0
 var family_member_speed: int
 var target_member: CharacterBody2D
+var target_member_position: int
 var target_name: String
 
-const MEGAMAN = preload("res://characters/megaman/megaman2.tscn")
-const IRONMAN = preload("res://characters/iron_man_2/character_body_2d.tscn")
-const SPIDERMAN = preload("res://characters/spider_man_2/character_body_2d.tscn")
-const CAPTAINAMERICA = preload("res://characters/captain_america_2/character_body_2d.tscn")
+#const MEGAMAN = preload("res://characters/megaman/megaman2.tscn")
+#const IRONMAN = preload("res://characters/iron_man_2/character_body_2d.tscn")
+#const SPIDERMAN = preload("res://characters/spider_man_2/character_body_2d.tscn")
+#const CAPTAINAMERICA = preload("res://characters/captain_america_2/character_body_2d.tscn")
 
-#var family_members_array: Array[PackedScene] = [CAPTAINAMERICA,CAPTAINAMERICA,CAPTAINAMERICA,CAPTAINAMERICA]
-var family_members_array: Array[PackedScene] = [MEGAMAN,IRONMAN,SPIDERMAN,CAPTAINAMERICA]
+const adir = preload("res://family/adir/character_body_2d.tscn")
+const ben = preload("res://family/ben/character_body_2d.tscn")
+const dad = preload("res://family/dad/character_body_2d.tscn")
+const dassy = preload("res://family/dassy/character_body_2d.tscn")
+const grandma = preload("res://family/grandma/character_body_2d.tscn")
+const jack = preload("res://family/jack/character_body_2d.tscn")
+const joey = preload("res://family/joey/character_body_2d.tscn")
+#const liah = preload("res://family/liah/character_body_2d.tscn")
+const meital = preload("res://family/meital/character_body_2d.tscn")
+#const melissa = preload("res://family/melissa/character_body_2d.tscn")
+const michelle = preload("res://family/michelle/character_body_2d.tscn")
+const mom = preload("res://family/mom/character_body_2d.tscn")
+const ori = preload("res://family/ori/character_body_2d.tscn")
+const rut = preload("res://family/rut/character_body_2d.tscn")
+#const sophie = preload("res://family/sophie/character_body_2d.tscn")
+#const yitzchak = preload("res://family/yitzchak/character_body_2d.tscn")
+const zayde = preload("res://family/zayde/character_body_2d.tscn")
+#const zevi = preload("res://family/zevi/character_body_2d.tscn")
+
+
+
+#var family_members_array: Array[PackedScene] = [MEGAMAN,IRONMAN,SPIDERMAN,CAPTAINAMERICA]
+var family_members_array: Array[PackedScene] = [adir,ben,dad,dassy,grandma,jack,joey,meital,michelle,mom,ori,rut,zayde]
 var family_members_on_screen: Array[String]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var signal_message_queue = get_node("SignalMessageQueue")
 	signal_message_queue.connect("family_member_removed", _on_family_member_removed)
 	signal_message_queue.connect("you_win", _on_you_win)
-	target_member = family_members_array[random_number_generator.randi_range(0,3)].instantiate()
+	target_member_position = random_number_generator.randi_range(0,12)
+	target_member = family_members_array[target_member_position].instantiate()
 	add_child(target_member)
-	target_name = target_member.NAME
+	target_name = _get_family_member_name(target_member_position)
 	target_member.queue_free()
 	$RichTextLabel.text = "Playing on {mode} mode".format({"mode": PersistentData.mode})
 	if PersistentData.mode == "easy":
@@ -65,17 +88,18 @@ func _on_you_win():
 func _return_to_title_screen():
 	get_tree().change_scene_to_file("res://scenes/TitleScreen/TitleScreen.tscn")
 
-func _generate_family_member(member):
+func _generate_family_member(member,member_position):
 	random_number_generator.randomize()
-	family_member_spawn_x = random_number_generator.randi_range(0,1480)
+	family_member_spawn_x = random_number_generator.randi_range(100,1380)
 	random_number_generator.randomize()
-	family_member_spawn_y = random_number_generator.randi_range(0,720)
+	family_member_spawn_y = random_number_generator.randi_range(100,620)
 	random_number_generator.randomize()
 	family_member_direction_x = random_number_generator.randi_range(-1,1)
 	random_number_generator.randomize()
 	family_member_direction_y = random_number_generator.randi_range(-1,1)
 	var next_member = member.instantiate()
 	add_child(next_member)
+	next_member.NAME = _get_family_member_name(member_position)
 	if family_members_on_screen.has(next_member.NAME):
 		next_member.queue_free()
 	else:
@@ -85,9 +109,12 @@ func _generate_family_member(member):
 		if POTENTIAL_TARGET_POSITION == Vector2(0,0):
 			POTENTIAL_TARGET_POSITION = Vector2(1,0)
 		next_member.position = Vector2(family_member_spawn_x,family_member_spawn_y)
-		next_member.TARGET_POSITION = POTENTIAL_TARGET_POSITION
+		if PersistentData.mode == "easy":
+			next_member.TARGET_POSITION = Vector2(0,0)
+		else:
+			next_member.TARGET_POSITION = POTENTIAL_TARGET_POSITION
 		next_member.SPEED = family_member_speed
-		if next_member.NAME == target_name:
+		if member_position == target_member_position:
 			next_member.IS_TARGET = true
 		print("Members on screen: ", family_members_on_screen)
 
@@ -95,6 +122,38 @@ func _generate_family_member(member):
 func _on_spawn_timer_timeout():
 	$RichTextLabel.text = "Find {target_name}!".format({"target_name": target_name})
 	random_number_generator.randomize()
-	var next_family_member = family_members_array[random_number_generator.randi_range(0,3)]
+	var next_family_member_position = random_number_generator.randi_range(0,12)
+	var next_family_member = family_members_array[next_family_member_position]
 	print("the family member is: ", next_family_member)
-	_generate_family_member(next_family_member)
+	_generate_family_member(next_family_member,next_family_member_position)
+
+func _get_family_member_name(array_number):
+	var member_name: String
+	match array_number:
+		0:
+			member_name = "Adir"
+		1:
+			member_name = "Ben"
+		2:
+			member_name = "Sabba Scott"
+		3:
+			member_name = "Dassy"
+		4:
+			member_name = "Savta Rabbah"
+		5:
+			member_name = "Jack"
+		6:
+			member_name = "Joey"
+		7:
+			member_name = "Meital"
+		8:
+			member_name = "Michelle"
+		9:
+			member_name = "Savta Susan"
+		10:
+			member_name = "Ori"
+		11:
+			member_name = "Ida"
+		12:
+			member_name = "Sabba Rabbah"
+	return member_name

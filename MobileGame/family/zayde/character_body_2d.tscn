@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckolfu6tfqfbx"]
+
+[ext_resource type="Texture2D" uid="uid://dmlyan8i8lgp3" path="res://family/zayde/zayde.png" id="1_grcih"]
+[ext_resource type="Script" path="res://family/family_member_script.gd" id="1_kcknb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6as8k"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_kcknb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_grcih")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+scale = Vector2(18, 18)
+shape = SubResource("CapsuleShape2D_6as8k")

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxgvvjbtr7le4"]
+
+[ext_resource type="Script" path="res://family/family_member_script.gd" id="1_lua4i"]
+[ext_resource type="Texture2D" uid="uid://ck8qmyom1mwjg" path="res://family/grandma/grandma.png" id="2_25v04"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1tq47"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_lua4i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_25v04")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+scale = Vector2(22, 22)
+shape = SubResource("CapsuleShape2D_1tq47")
