@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3ltnod80fpjb"]
+
+[ext_resource type="Script" path="res://family/family_member_script.gd" id="1_rttnr"]
+[ext_resource type="Texture2D" uid="uid://bt0hsvbrh3mnf" path="res://family/melissa/melissa.png" id="2_d76sm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ddy3a"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_rttnr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("2_d76sm")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+scale = Vector2(15, 15)
+shape = SubResource("CapsuleShape2D_ddy3a")

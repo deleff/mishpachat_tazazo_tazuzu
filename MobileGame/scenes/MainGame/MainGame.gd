@@ -2,8 +2,8 @@ extends Node2D
 
 var spawn_timer = Timer.new()
 var spawn_timer_timeout: int
-var transition_period = 2
-var transition_position = 0
+
+var countdown_timer = Timer.new()
 
 var random_number_generator = RandomNumberGenerator.new()
 var family_member_spawn_x: int
@@ -30,27 +30,29 @@ const jack = preload("res://family/jack/character_body_2d.tscn")
 const joey = preload("res://family/joey/character_body_2d.tscn")
 #const liah = preload("res://family/liah/character_body_2d.tscn")
 const meital = preload("res://family/meital/character_body_2d.tscn")
-#const melissa = preload("res://family/melissa/character_body_2d.tscn")
+const melissa = preload("res://family/melissa/character_body_2d.tscn")
 const michelle = preload("res://family/michelle/character_body_2d.tscn")
 const mom = preload("res://family/mom/character_body_2d.tscn")
 const ori = preload("res://family/ori/character_body_2d.tscn")
 const rut = preload("res://family/rut/character_body_2d.tscn")
-#const sophie = preload("res://family/sophie/character_body_2d.tscn")
+const sophie = preload("res://family/sophie/character_body_2d.tscn")
 #const yitzchak = preload("res://family/yitzchak/character_body_2d.tscn")
 const zayde = preload("res://family/zayde/character_body_2d.tscn")
-#const zevi = preload("res://family/zevi/character_body_2d.tscn")
+const zevi = preload("res://family/zevi/character_body_2d.tscn")
 
 
 
 #var family_members_array: Array[PackedScene] = [MEGAMAN,IRONMAN,SPIDERMAN,CAPTAINAMERICA]
-var family_members_array: Array[PackedScene] = [adir,ben,dad,dassy,grandma,jack,joey,meital,michelle,mom,ori,rut,zayde]
+var family_members_array: Array[PackedScene] = [adir,ben,dad,dassy,grandma,jack,joey,meital,melissa,michelle,mom,ori,rut,sophie,zayde,zevi]
 var family_members_on_screen: Array[String]
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_child(countdown_timer)
+	countdown_timer.start(60)
 	var signal_message_queue = get_node("SignalMessageQueue")
 	signal_message_queue.connect("family_member_removed", _on_family_member_removed)
 	signal_message_queue.connect("you_win", _on_you_win)
-	target_member_position = random_number_generator.randi_range(0,12)
+	target_member_position = random_number_generator.randi_range(0,15)
 	target_member = family_members_array[target_member_position].instantiate()
 	add_child(target_member)
 	target_name = _get_family_member_name(target_member_position)
@@ -74,6 +76,7 @@ func _ready():
 	print("Mode: ", PersistentData.mode)
 	$TitleScreenTouchScreenButton.pressed.connect(_return_to_title_screen)
 
+
 func _on_family_member_removed(member_name):
 	family_member_count -=1
 	family_members_on_screen.erase(member_name)
@@ -90,9 +93,9 @@ func _return_to_title_screen():
 
 func _generate_family_member(member,member_position):
 	random_number_generator.randomize()
-	family_member_spawn_x = random_number_generator.randi_range(100,1380)
+	family_member_spawn_x = random_number_generator.randi_range(150,1380)
 	random_number_generator.randomize()
-	family_member_spawn_y = random_number_generator.randi_range(100,620)
+	family_member_spawn_y = random_number_generator.randi_range(150,600)
 	random_number_generator.randomize()
 	family_member_direction_x = random_number_generator.randi_range(-1,1)
 	random_number_generator.randomize()
@@ -120,9 +123,11 @@ func _generate_family_member(member,member_position):
 
 
 func _on_spawn_timer_timeout():
+	if PersistentData.mode == "hard":
+		$TimerRichTextLabel.text = "Time left: {time}".format({"time": ceil(countdown_timer.time_left)})
 	$RichTextLabel.text = "Find {target_name}!".format({"target_name": target_name})
 	random_number_generator.randomize()
-	var next_family_member_position = random_number_generator.randi_range(0,12)
+	var next_family_member_position = random_number_generator.randi_range(0,15)
 	var next_family_member = family_members_array[next_family_member_position]
 	print("the family member is: ", next_family_member)
 	_generate_family_member(next_family_member,next_family_member_position)
@@ -149,11 +154,17 @@ func _get_family_member_name(array_number):
 		8:
 			member_name = "Michelle"
 		9:
-			member_name = "Savta Susan"
+			member_name = "Melissa"
 		10:
-			member_name = "Ori"
+			member_name = "Savta Susan"
 		11:
-			member_name = "Ida"
+			member_name = "Ori"
 		12:
+			member_name = "Ida"
+		13:
+			member_name = "Sophie"
+		14:
 			member_name = "Sabba Rabbah"
+		15:
+			member_name = "Zev"
 	return member_name
