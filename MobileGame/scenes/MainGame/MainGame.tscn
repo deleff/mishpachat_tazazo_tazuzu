@@ -12,6 +12,7 @@ script = ExtResource("2")
 custom_minimum_size = Vector2(800, 160)
 offset_right = 800.0
 offset_bottom = 190.0
+scale = Vector2(1.5, 1.5)
 size_flags_stretch_ratio = 2.0
 theme = ExtResource("2_fkfg5")
 bbcode_enabled = true
@@ -27,10 +28,11 @@ script = ExtResource("4_cjflm")
 
 [node name="TimerRichTextLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(60, 160)
-offset_left = 1129.0
+offset_left = 1000.0
 offset_top = 5.0
-offset_right = 1422.0
+offset_right = 1293.0
 offset_bottom = 165.0
+scale = Vector2(1.5, 1.5)
 theme = ExtResource("2_fkfg5")
 bbcode_enabled = true
 

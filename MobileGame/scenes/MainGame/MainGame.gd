@@ -55,7 +55,7 @@ func _ready():
 	signal_message_queue.connect("family_member_removed", _on_family_member_removed)
 	signal_message_queue.connect("you_win", _on_you_win)
 	_set_target_family_member()
-	$RichTextLabel.text = "Playing on {mode} mode".format({"mode": PersistentData.mode})
+	$RichTextLabel.text = "[outline_size=20][outline_color=black]Playing on {mode} mode[/outline_color][/outline_size]".format({"mode": PersistentData.mode})
 	if PersistentData.mode == "easy":
 		family_member_speed = 160
 		spawn_timer_timeout = 2
@@ -87,13 +87,13 @@ func _on_family_member_removed(member_name):
 
 func _on_you_win():
 	if PersistentData.mode == "hard":
-		countdown_timer.start(ceil(countdown_timer.time_left) + 30)
-		score+=30
+		countdown_timer.start(ceil(countdown_timer.time_left) + 10)
+		score+=10
 		_set_target_family_member()
 	else:
 		spawn_timer.queue_free()
 		$RichTextLabel.text = "YAAAAY, You found {target_name}!!!".format({"target_name": target_name})
-		$RichTextLabel.position = Vector2(370,330)
+		$RichTextLabel.position = Vector2(225,330)
 		$AudioStreamPlayer.stream = load("res://sfx/win.mp3")
 		$AudioStreamPlayer.play()
 
@@ -105,7 +105,7 @@ func _generate_family_member(member,member_position):
 	random_number_generator.randomize()
 	family_member_spawn_x = random_number_generator.randi_range(150,1380)
 	random_number_generator.randomize()
-	family_member_spawn_y = random_number_generator.randi_range(150,600)
+	family_member_spawn_y = random_number_generator.randi_range(200,600)
 	random_number_generator.randomize()
 	family_member_direction_x = random_number_generator.randi_range(-1,1)
 	random_number_generator.randomize()
@@ -134,8 +134,13 @@ func _generate_family_member(member,member_position):
 
 func _on_spawn_timer_timeout():
 	if PersistentData.mode == "hard":
-		$TimerRichTextLabel.text = "Time left: {time}".format({"time": ceil(countdown_timer.time_left)})
-	$RichTextLabel.text = "Find {target_name}!".format({"target_name": target_name})
+		$TimerRichTextLabel.text = "[outline_size=20][outline_color=black]Time left: {time}[/outline_color][/outline_size]".format({"time": ceil(countdown_timer.time_left)})
+		random_number_generator.randomize()
+		var next_family_member_position = random_number_generator.randi_range(0,15)
+		var next_family_member = family_members_array[next_family_member_position]
+		print("the family member is: ", next_family_member)
+		_generate_family_member(next_family_member,next_family_member_position)
+	$RichTextLabel.text = "[outline_size=20][outline_color=black]Find [rainbow freq=1.0 sat=0.8 val=0.8]{target_name} [/rainbow]![/outline_color][/outline_size]".format({"target_name": target_name})
 	random_number_generator.randomize()
 	var next_family_member_position = random_number_generator.randi_range(0,15)
 	var next_family_member = family_members_array[next_family_member_position]
@@ -144,7 +149,7 @@ func _on_spawn_timer_timeout():
 
 func _on_countdown_timer_timeout():
 	if PersistentData.mode == "hard":
-		if score > PersistentData.high_score:
+		if score >= PersistentData.high_score:
 			PersistentData.high_score = score
 			$AudioStreamPlayer.stream = load("res://sfx/high_score.mp3")
 		else:

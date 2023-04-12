@@ -9,9 +9,9 @@
 script = ExtResource("1_6xkra")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_ngyfl")
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
-scale = Vector2(20, 20)
+scale = Vector2(12, 12)
 shape = SubResource("CapsuleShape2D_dfek5")

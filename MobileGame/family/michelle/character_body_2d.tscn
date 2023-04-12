@@ -9,7 +9,7 @@
 script = ExtResource("1_b8fhg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_ei4od")
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
