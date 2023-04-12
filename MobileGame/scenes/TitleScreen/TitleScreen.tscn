@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfta85r0xedfr"]
+[gd_scene load_steps=7 format=3 uid="uid://cfta85r0xedfr"]
 
 [ext_resource type="Script" path="res://scenes/TitleScreen/TitleScreen.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://ctyar86lf6v5a" path="res://scenes/TitleScreen/easy_mode_image.png" id="2_vptae"]
+[ext_resource type="Theme" uid="uid://csvmo7ycecrp0" path="res://fonts/new_theme.tres" id="2_vs5wq"]
 [ext_resource type="Texture2D" uid="uid://bd73e84qplv13" path="res://scenes/TitleScreen/medium_mode_button.png" id="3_qxnoy"]
 [ext_resource type="Texture2D" uid="uid://m3hytavenikc" path="res://scenes/TitleScreen/hard_mode_button.png" id="4_3b0cu"]
 
@@ -24,10 +25,15 @@ func _process(delta):
 script = ExtResource("1")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(800, 160)
+offset_left = 487.0
+offset_top = 552.0
+offset_right = 1287.0
+offset_bottom = 712.0
+size_flags_stretch_ratio = 2.0
+theme = ExtResource("2_vs5wq")
 bbcode_enabled = true
-text = "Mishpachat Tazazo Tazuzu"
+text = "Eleffs On The Move"
 
 [node name="EasyModeTouchScreenButton" type="TouchScreenButton" parent="."]
 position = Vector2(0, 40)
@@ -54,3 +60,5 @@ offset_top = -286.0
 offset_right = 1274.0
 offset_bottom = 794.0
 scale = Vector2(1.5, 1.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

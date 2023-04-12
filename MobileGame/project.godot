@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 PersistentData="*res://global/PersistentData.gd"
 SceneLoader="*res://global/SceneLoader.gd"
 
+[compression]
+
+formats/zstd/long_distance_matching.etc2=true
+formats/zstd/long_distance_matching.astc=true
+
 [display]
 
 window/size/viewport_width=1480
@@ -30,3 +35,7 @@ window/stretch/mode="viewport"
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
