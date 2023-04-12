@@ -24,6 +24,8 @@ SceneLoader="*res://global/SceneLoader.gd"
 
 window/size/viewport_width=1480
 window/size/viewport_height=720
+window/handheld/orientation=4
+window/stretch/mode="viewport"
 
 [input_devices]
 

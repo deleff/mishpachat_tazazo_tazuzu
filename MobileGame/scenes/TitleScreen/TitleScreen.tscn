@@ -44,3 +44,13 @@ texture_normal = ExtResource("3_qxnoy")
 position = Vector2(0, 120)
 scale = Vector2(0.25, 0.25)
 texture_normal = ExtResource("4_3b0cu")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_left = -646.0
+offset_top = -286.0
+offset_right = 1274.0
+offset_bottom = 794.0
+scale = Vector2(1.5, 1.5)

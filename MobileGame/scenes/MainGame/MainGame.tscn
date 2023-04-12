@@ -10,7 +10,9 @@ script = ExtResource("2")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(800, 160)
-offset_right = 1.0
+offset_right = 800.0
+offset_bottom = 190.0
+size_flags_stretch_ratio = 2.0
 theme = ExtResource("2_fkfg5")
 bbcode_enabled = true
 
@@ -31,3 +33,5 @@ offset_right = 1422.0
 offset_bottom = 165.0
 theme = ExtResource("2_fkfg5")
 bbcode_enabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

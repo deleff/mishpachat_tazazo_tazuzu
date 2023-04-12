@@ -2,7 +2,7 @@ extends Node2D
 
 var spawn_timer = Timer.new()
 var spawn_timer_timeout: int
-
+var score: int = 60
 var countdown_timer = Timer.new()
 
 var random_number_generator = RandomNumberGenerator.new()
@@ -49,26 +49,28 @@ var family_members_on_screen: Array[String]
 func _ready():
 	add_child(countdown_timer)
 	countdown_timer.start(60)
+	countdown_timer.one_shot = true
+	countdown_timer.timeout.connect(_on_countdown_timer_timeout)
 	var signal_message_queue = get_node("SignalMessageQueue")
 	signal_message_queue.connect("family_member_removed", _on_family_member_removed)
 	signal_message_queue.connect("you_win", _on_you_win)
-	target_member_position = random_number_generator.randi_range(0,15)
-	target_member = family_members_array[target_member_position].instantiate()
-	add_child(target_member)
-	target_name = _get_family_member_name(target_member_position)
-	target_member.queue_free()
+	_set_target_family_member()
 	$RichTextLabel.text = "Playing on {mode} mode".format({"mode": PersistentData.mode})
 	if PersistentData.mode == "easy":
 		family_member_speed = 160
 		spawn_timer_timeout = 2
+		$AudioStreamPlayer.stream = load("res://sfx/easy_mode.mp3")
 	elif PersistentData.mode == "medium":
 		family_member_speed = 320
-		spawn_timer_timeout = 1
+		spawn_timer_timeout = 1.5
+		$AudioStreamPlayer.stream = load("res://sfx/medium_mode.mp3")
 	elif PersistentData.mode == "hard":
 		family_member_speed = 480
-		spawn_timer_timeout = 0.2
+		spawn_timer_timeout = 1
+		$AudioStreamPlayer.stream = load("res://sfx/hard_mode.mp3")
 	else:
 		print("ERROR: Unknown mode")
+	$AudioStreamPlayer.play()
 	add_child(spawn_timer)
 	spawn_timer.one_shot = false
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
@@ -84,11 +86,19 @@ func _on_family_member_removed(member_name):
 	print("Family members on screen: ", family_member_count)
 
 func _on_you_win():
-	spawn_timer.queue_free()
-	$RichTextLabel.text = "YAAAAY, You found {target_name}!!!".format({"target_name": target_name})
-	$RichTextLabel.position = Vector2(370,330)
+	if PersistentData.mode == "hard":
+		countdown_timer.start(ceil(countdown_timer.time_left) + 30)
+		score+=30
+		_set_target_family_member()
+	else:
+		spawn_timer.queue_free()
+		$RichTextLabel.text = "YAAAAY, You found {target_name}!!!".format({"target_name": target_name})
+		$RichTextLabel.position = Vector2(370,330)
+		$AudioStreamPlayer.stream = load("res://sfx/win.mp3")
+		$AudioStreamPlayer.play()
 
 func _return_to_title_screen():
+	PersistentData.title_screen_first_time = false
 	get_tree().change_scene_to_file("res://scenes/TitleScreen/TitleScreen.tscn")
 
 func _generate_family_member(member,member_position):
@@ -132,6 +142,29 @@ func _on_spawn_timer_timeout():
 	print("the family member is: ", next_family_member)
 	_generate_family_member(next_family_member,next_family_member_position)
 
+func _on_countdown_timer_timeout():
+	if PersistentData.mode == "hard":
+		if score > PersistentData.high_score:
+			PersistentData.high_score = score
+			$AudioStreamPlayer.stream = load("res://sfx/high_score.mp3")
+		else:
+			$AudioStreamPlayer.stream = load("res://sfx/not_high_score.mp3")
+		$AudioStreamPlayer.play()
+		spawn_timer.stop()
+		spawn_timer.queue_free()
+		$TimerRichTextLabel.queue_free()
+		$RichTextLabel.position = Vector2(370,330)
+		$RichTextLabel.text = "Time's up! \nYour score: {your_score} seconds! \nCurrent high score: {high_score} seconds!".format({"your_score": score, "high_score": PersistentData.high_score})
+
+
+func _set_target_family_member():
+	target_member_position = random_number_generator.randi_range(0,15)
+	target_member = family_members_array[target_member_position].instantiate()
+	add_child(target_member)
+	target_name = _get_family_member_name(target_member_position)
+	target_member.queue_free()
+
+
 func _get_family_member_name(array_number):
 	var member_name: String
 	match array_number:
@@ -152,15 +185,15 @@ func _get_family_member_name(array_number):
 		7:
 			member_name = "Meital"
 		8:
-			member_name = "Michelle"
-		9:
 			member_name = "Melissa"
+		9:
+			member_name = "Michelle"
 		10:
 			member_name = "Savta Susan"
 		11:
 			member_name = "Ori"
 		12:
-			member_name = "Ida"
+			member_name = "Ruth"
 		13:
 			member_name = "Sophie"
 		14:
