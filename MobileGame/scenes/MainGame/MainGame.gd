@@ -40,7 +40,7 @@ var family_members_on_screen: Array[String]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_child(countdown_timer)
-	countdown_timer.start(0)
+	countdown_timer.start(60)
 	countdown_timer.one_shot = true
 	countdown_timer.timeout.connect(_on_countdown_timer_timeout)
 	var signal_message_queue = get_node("SignalMessageQueue")
@@ -98,10 +98,6 @@ func _on_you_win():
 		
 
 func _fireworks():
-	#var colors = [Color(1.0, 0.0, 0.0, 1.0),Color(0.0, 1.0, 0.0, 1.0),Color(0.0, 0.0, 1.0, 0.0)]
-	#randomize()
-	#var modulate = colors[randi() % colors.size()]
-	#$GPUParticles2D.process_material.color = modulate
 	var random_color = Color(randf(), randf(), randf())
 	$GPUParticles2D.process_material.color = random_color
 	random_number_generator.randomize()
