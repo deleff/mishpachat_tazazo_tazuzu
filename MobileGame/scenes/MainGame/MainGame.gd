@@ -40,7 +40,7 @@ var family_members_on_screen: Array[String]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_child(countdown_timer)
-	countdown_timer.start(60)
+	countdown_timer.start(0)
 	countdown_timer.one_shot = true
 	countdown_timer.timeout.connect(_on_countdown_timer_timeout)
 	var signal_message_queue = get_node("SignalMessageQueue")
@@ -85,10 +85,32 @@ func _on_you_win():
 		_set_target_family_member()
 	else:
 		spawn_timer.queue_free()
+		$SfxAudioStreamPlayer.queue_free()
 		$RichTextLabel.text = "YAAAAY, You found {target_name}!!!".format({"target_name": target_name})
 		$RichTextLabel.position = Vector2(225,330)
 		$AudioStreamPlayer.stream = load("res://sfx/win.mp3")
 		$AudioStreamPlayer.play()
+		var firework_timer = Timer.new()
+		add_child(firework_timer)
+		firework_timer.one_shot = false
+		firework_timer.start(0.5)
+		firework_timer.timeout.connect(_fireworks)
+		
+
+func _fireworks():
+	#var colors = [Color(1.0, 0.0, 0.0, 1.0),Color(0.0, 1.0, 0.0, 1.0),Color(0.0, 0.0, 1.0, 0.0)]
+	#randomize()
+	#var modulate = colors[randi() % colors.size()]
+	#$GPUParticles2D.process_material.color = modulate
+	var random_color = Color(randf(), randf(), randf())
+	$GPUParticles2D.process_material.color = random_color
+	random_number_generator.randomize()
+	var firework_x = random_number_generator.randi_range(50,1380)
+	random_number_generator.randomize()
+	var firework_y = random_number_generator.randi_range(50,650)
+	$GPUParticles2D.position = Vector2(firework_x,firework_y)
+	$GPUParticles2D.emitting = true
+
 
 func _return_to_title_screen():
 	PersistentData.title_screen_first_time = false
@@ -147,6 +169,11 @@ func _on_countdown_timer_timeout():
 		if score >= PersistentData.high_score:
 			PersistentData.high_score = score
 			$AudioStreamPlayer.stream = load("res://sfx/high_score.mp3")
+			var firework_timer = Timer.new()
+			add_child(firework_timer)
+			firework_timer.one_shot = false
+			firework_timer.start(0.5)
+			firework_timer.timeout.connect(_fireworks)
 		else:
 			$AudioStreamPlayer.stream = load("res://sfx/not_high_score.mp3")
 		$AudioStreamPlayer.play()

@@ -1,9 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://ioelfse7m6ik"]
+[gd_scene load_steps=7 format=3 uid="uid://ioelfse7m6ik"]
 
 [ext_resource type="Script" path="res://scenes/MainGame/MainGame.gd" id="2"]
 [ext_resource type="Theme" uid="uid://csvmo7ycecrp0" path="res://fonts/new_theme.tres" id="2_fkfg5"]
 [ext_resource type="Texture2D" uid="uid://drw2n4p2wrejc" path="res://scenes/MainGame/back_button.png" id="2_gv4ad"]
 [ext_resource type="Script" path="res://scenes/MainGame/SignalMessageQueue.gd" id="4_cjflm"]
+
+[sub_resource type="CurveTexture" id="CurveTexture_2gqej"]
+width = 50
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rmb1j"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 600.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_min = 400.0
+linear_accel_max = 400.0
+linear_accel_curve = SubResource("CurveTexture_2gqej")
+scale_min = 5.0
+scale_max = 20.0
+color = Color(1, 0.113725, 0.137255, 1)
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("2")
@@ -39,3 +58,11 @@ bbcode_enabled = true
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="SfxAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_rmb1j")
+lifetime = 0.3
+one_shot = true
+visibility_rect = Rect2(0, 0, 0, 0)
