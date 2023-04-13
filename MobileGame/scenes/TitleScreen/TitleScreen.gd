@@ -3,6 +3,7 @@ extends Node2D
 var random_number_generator = RandomNumberGenerator.new()
 var tiny_dance_flip: bool = false
 var tiny_dance_flip_iterations: int = 0
+var mischief_iterations: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,6 +14,11 @@ func _ready():
 	if PersistentData.title_screen_first_time == true:
 		$AudioStreamPlayer.stream = load("res://sfx/title_screen.mp3")
 		$TextureRect.texture = load("res://scenes/TitleScreen/title_screen_1.png")
+		var mischief_timer = Timer.new()
+		add_child(mischief_timer)
+		mischief_timer.one_shot = false
+		mischief_timer.start(5)
+		mischief_timer.timeout.connect(_mischief)
 	else:
 		random_number_generator.randomize()
 		if random_number_generator.randi_range(0,1) == 0:
@@ -56,7 +62,14 @@ func _on_hard_mode_pressed():
 	print("hard pressed")
 	get_tree().change_scene_to_file("res://scenes/MainGame/MainGame.tscn")
 	PersistentData.mode = "hard"
-	
+
+func _mischief():
+	if mischief_iterations % 5 == 0 && mischief_iterations != 0:
+		$YitzchakCharacterBody2D/YitzchakSprite2D.texture = load("res://family/yitzchak/yitzchak_walk.png")
+		$YitzchakCharacterBody2D.position = Vector2(-80,550)
+		$YitzchakCharacterBody2D/YitzchakSprite2D.flip_h = false
+	mischief_iterations += 1
+
 func _tiny_dance():
 	tiny_dance_flip_iterations += 1
 	if tiny_dance_flip_iterations % 5 == 0:
