@@ -19,7 +19,7 @@ func _tapped():
 		signal_message_queue.emit_signal("you_win")
 		self.queue_free()
 	else:
-		print("NOPE, NOT ME")
+		signal_message_queue.emit_signal("wrong_person")
 
 func _on_you_win():
 	self.queue_free()

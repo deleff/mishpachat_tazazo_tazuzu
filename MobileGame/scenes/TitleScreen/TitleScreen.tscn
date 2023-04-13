@@ -23,17 +23,17 @@ text = "[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]Eleffs On 
 custom_effects = [null]
 
 [node name="EasyModeTouchScreenButton" type="TouchScreenButton" parent="."]
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.45, 0.45)
 texture_normal = ExtResource("2_vptae")
 
 [node name="MediumModeTouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(0, 275)
-scale = Vector2(0.6, 0.6)
+position = Vector2(0, 280)
+scale = Vector2(0.45, 0.45)
 texture_normal = ExtResource("3_qxnoy")
 
 [node name="HardModeTouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(0, 652)
-scale = Vector2(0.6, 0.6)
+position = Vector2(0, 669)
+scale = Vector2(0.45, 0.45)
 texture_normal = ExtResource("4_3b0cu")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

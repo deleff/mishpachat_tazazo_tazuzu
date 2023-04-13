@@ -19,7 +19,7 @@ bbcode_enabled = true
 
 [node name="TitleScreenTouchScreenButton" type="TouchScreenButton" parent="."]
 position = Vector2(0, 650)
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.3, 0.3)
 texture_normal = ExtResource("2_gv4ad")
 texture_pressed = ExtResource("2_gv4ad")
 
@@ -28,12 +28,14 @@ script = ExtResource("4_cjflm")
 
 [node name="TimerRichTextLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(60, 160)
-offset_left = 1000.0
+offset_left = 950.0
 offset_top = 5.0
-offset_right = 1293.0
+offset_right = 1300.0
 offset_bottom = 165.0
 scale = Vector2(1.5, 1.5)
 theme = ExtResource("2_fkfg5")
 bbcode_enabled = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="SfxAudioStreamPlayer" type="AudioStreamPlayer" parent="."]

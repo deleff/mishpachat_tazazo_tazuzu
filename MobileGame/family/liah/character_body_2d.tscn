@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://db0k8em1bc4bf"]
+
+[ext_resource type="Script" path="res://family/family_member_script.gd" id="1_8jpht"]
+[ext_resource type="Texture2D" uid="uid://cf6rjwc5cld76" path="res://family/liah/liah.png" id="2_fmrjb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k3hws"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_8jpht")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_fmrjb")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+scale = Vector2(20, 20)
+shape = SubResource("CapsuleShape2D_k3hws")
