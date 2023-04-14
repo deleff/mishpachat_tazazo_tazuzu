@@ -21,14 +21,15 @@ func _ready():
 
 func _movement():
 	movement_iterations += 1
-	if movement_iterations % 4 == 0 && movement_iterations != 0:
+	if movement_iterations % 2 == 0 && movement_iterations != 0:
 		if $YitzchakSprite2D.texture == load("res://family/yitzchak/yitzchak_walk.png"):
 			$YitzchakSprite2D.texture = load("res://family/yitzchak/yitzchak_shrug.png")
 			walking_speed = Vector2(0,0) * 0
 		else:
 			walking_speed = Vector2(1,0) * 150
 			$YitzchakSprite2D.texture = load("res://family/yitzchak/yitzchak_walk.png")
-	if movement_iterations >= 6:
+	if movement_iterations >= 8:
+		print("Yitzchak queue free")
 		self.queue_free()
 			
 func _shrug():

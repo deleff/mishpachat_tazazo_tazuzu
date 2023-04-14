@@ -4,15 +4,12 @@ var random_number_generator = RandomNumberGenerator.new()
 var tiny_dance_flip: bool = false
 var tiny_dance_flip_iterations: int = 0
 var mischief_iterations: int = 0
-var liah_2
-var yitzchak_2
+
+const yitzchak_scene = preload("res://scenes/TitleScreen/yitzchak_character_body_2d.tscn")
+const liah_scene = preload("res://scenes/TitleScreen/liah_character_body_2d.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	liah_2 = $LiahCharacterBody2D.duplicate()
-	yitzchak_2 = $YitzchakCharacterBody2D.duplicate()
-	$YitzchakCharacterBody2D.queue_free()
-	$LiahCharacterBody2D.queue_free()
 	print("starting")
 	$EasyModeTouchScreenButton.pressed.connect(_on_easy_mode_pressed)
 	$MediumModeTouchScreenButton.pressed.connect(_on_medium_mode_pressed)
@@ -42,10 +39,6 @@ func _ready():
 		tiny_dancer_timer.timeout.connect(_tiny_dance)
 	$AudioStreamPlayer.play()
 
-#func _process(delta):
-#	if ($HardModeTouchScreenButton.is_pressed()):
-#		print("hard mode pressed")
-
 func _on_easy_mode_pressed():
 	$AudioStreamPlayer.stream = load("res://sfx/select.mp3")
 	$AudioStreamPlayer.play()
@@ -74,11 +67,13 @@ func _mischief():
 	if mischief_iterations % 5 == 0 && mischief_iterations != 0:
 		random_number_generator.randomize()
 		if random_number_generator.randi_range(0,1) > 0:
-			add_child(yitzchak_2)
-			yitzchak_2.position = Vector2(-80,550)
+			var yitzchak = yitzchak_scene.instantiate()
+			add_child(yitzchak)
+			yitzchak.position = Vector2(-80,550)
 		else:
-			add_child(liah_2)
-			liah_2.position = Vector2(random_number_generator.randi_range(300,1000),530)
+			var liah = liah_scene.instantiate()
+			add_child(liah)
+			liah.position = Vector2(random_number_generator.randi_range(300,1000),530)
 	mischief_iterations += 1
 
 func _tiny_dance():

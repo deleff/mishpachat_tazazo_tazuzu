@@ -27,7 +27,7 @@ func _movement():
 		$LiahSprite2D.flip_h = false
 		$LiahSprite2D.texture = load("res://family/liah/liah_wand.png")
 		$WandGPUParticles2D.position.x -= 350
-		$WandGPUParticles2D.position.y -= 293
+		$WandGPUParticles2D.position.y -= 284
 		$WandGPUParticles2D.emitting = true
 	elif movement_iterations == 11:
 		$LiahSprite2D.position.y -= 120
@@ -37,4 +37,5 @@ func _movement():
 		$GPUParticles2D.position.y -= 120
 		$GPUParticles2D.emitting = true
 		await get_tree().create_timer(2.5).timeout
+		print("Liah queue free")
 		self.queue_free()
