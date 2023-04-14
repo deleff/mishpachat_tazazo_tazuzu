@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kvnmlgkeellr"
-path="res://.godot/imported/left_thigh.png-78e1e9b74ba4548a8e41e3b0013f4343.ctex"
+uid="uid://cqjegd5iukcaj"
+path="res://.godot/imported/liah_wand.png-e3d5404ac9600b46576351600710f8e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/iron_man_2/sprites/left_thigh.png"
-dest_files=["res://.godot/imported/left_thigh.png-78e1e9b74ba4548a8e41e3b0013f4343.ctex"]
+source_file="res://family/liah/liah_wand.png"
+dest_files=["res://.godot/imported/liah_wand.png-e3d5404ac9600b46576351600710f8e5.ctex"]
 
 [params]
 

@@ -28,6 +28,8 @@ func _movement():
 		else:
 			walking_speed = Vector2(1,0) * 150
 			$YitzchakSprite2D.texture = load("res://family/yitzchak/yitzchak_walk.png")
+	if movement_iterations >= 6:
+		self.queue_free()
 			
 func _shrug():
 	if $YitzchakSprite2D.texture == load("res://family/yitzchak/yitzchak_shrug.png"):
@@ -44,6 +46,6 @@ func _shrug():
 			$YitzchakSprite2D.texture = load("res://family/yitzchak/yitzchak_walk.png")
 			walking_speed = Vector2(1,0) * 150
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	velocity = walking_speed
 	move_and_slide()

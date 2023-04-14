@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7vp6tf6myui7"
-path="res://.godot/imported/head.png-34048098a691e3934d455f364b990b19.ctex"
+uid="uid://wjr1oasq17rv"
+path="res://.godot/imported/liah_shrug.png-08292e7c8d5f5d309c832fc7992bca00.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/captain_america_2/sprites/head.png"
-dest_files=["res://.godot/imported/head.png-34048098a691e3934d455f364b990b19.ctex"]
+source_file="res://family/liah/liah_shrug.png"
+dest_files=["res://.godot/imported/liah_shrug.png-08292e7c8d5f5d309c832fc7992bca00.ctex"]
 
 [params]
 

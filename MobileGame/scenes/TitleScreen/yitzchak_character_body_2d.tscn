@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhvupfw8ch0fd"]
+
+[ext_resource type="Script" path="res://scenes/TitleScreen/YitzchakCharacterBody2D.gd" id="1_2ngjl"]
+[ext_resource type="Texture2D" uid="uid://baqq3emm8xkqg" path="res://family/yitzchak/yitzchak_walk.png" id="2_1avxa"]
+
+[node name="YitzchakCharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_2ngjl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_1avxa")

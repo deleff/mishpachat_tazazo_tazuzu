@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b06ir7wwnqs5k"
-path="res://.godot/imported/right_arm.png-6b126007a05a26822fc3915dde94c842.ctex"
+uid="uid://tpswg8o4ru5e"
+path="res://.godot/imported/liah_wand_hand.png-5fa6107e3cbee93db00350fdfbbcd49d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/megaman/sprites/right_arm.png"
-dest_files=["res://.godot/imported/right_arm.png-6b126007a05a26822fc3915dde94c842.ctex"]
+source_file="res://family/liah/liah_wand_hand.png"
+dest_files=["res://.godot/imported/liah_wand_hand.png-5fa6107e3cbee93db00350fdfbbcd49d.ctex"]
 
 [params]
 
