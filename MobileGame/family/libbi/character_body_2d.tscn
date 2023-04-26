@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdkmd4ni4n0bl"]
+
+[ext_resource type="Script" path="res://family/family_member_script.gd" id="1_k6t6f"]
+[ext_resource type="Texture2D" uid="uid://b4gu04eo7drt6" path="res://family/libbi/libbi.png" id="2_vimxm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_albrr"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_k6t6f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_vimxm")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+scale = Vector2(43, 43)
+shape = SubResource("CapsuleShape2D_albrr")

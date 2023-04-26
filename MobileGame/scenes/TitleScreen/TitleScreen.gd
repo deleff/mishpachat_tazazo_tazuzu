@@ -84,7 +84,7 @@ func _tiny_dance():
 		if tiny_dance_flip_iterations % 2 == 0:
 			$TinyDancerSprite2D.position = Vector2(random_number_generator.randi_range(40,350),160)
 		else:
-			$TinyDancerSprite2D.position = Vector2(random_number_generator.randi_range(40,350),560)
+			$TinyDancerSprite2D.position = Vector2(random_number_generator.randi_range(40,350),540)
 	if tiny_dance_flip == true:
 		$TinyDancerSprite2D.flip_h = true
 		tiny_dance_flip = false

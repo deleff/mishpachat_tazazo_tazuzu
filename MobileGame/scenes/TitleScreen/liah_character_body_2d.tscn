@@ -1,6 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbl3emw6tjphw"]
+[gd_scene load_steps=14 format=3 uid="uid://cbl3emw6tjphw"]
 
 [ext_resource type="Script" path="res://scenes/TitleScreen/LiahCharacterBody2D.gd" id="1_y8e03"]
+
+[sub_resource type="Curve" id="Curve_nhubv"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 351.947), 0.0, 0.0, 0, 0, Vector2(1, -335.501), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1pmvp"]
+curve = SubResource("Curve_nhubv")
 
 [sub_resource type="Gradient" id="Gradient_n7cnu"]
 offsets = PackedFloat32Array(0, 0.713996, 0.860041)
@@ -33,11 +42,22 @@ orbit_velocity_max = 0.0
 linear_accel_min = 300.0
 linear_accel_max = 300.0
 linear_accel_curve = SubResource("CurveTexture_2gqej")
+angle_max = 720.0
+angle_curve = SubResource("CurveTexture_1pmvp")
 scale_min = 5.0
 scale_max = 20.0
-color = Color(0.313726, 0.639216, 0.909804, 1)
+color = Color(0.305882, 0.733333, 0.368627, 1)
 color_ramp = SubResource("GradientTexture1D_g4xjt")
 hue_variation_max = 1.0
+
+[sub_resource type="Curve" id="Curve_st1ca"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0.00983627, -360), 0.0, 0.0, 0, 0, Vector2(0.984747, 360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2x2dn"]
+curve = SubResource("Curve_st1ca")
 
 [sub_resource type="Gradient" id="Gradient_g50hl"]
 offsets = PackedFloat32Array(0, 0.0121704, 0.472617, 0.651116, 0.801217)
@@ -58,9 +78,12 @@ initial_velocity_min = -300.0
 initial_velocity_max = -300.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
-radial_accel_max = 0.5
+radial_accel_min = -2.0
+radial_accel_max = 2.0
+angle_max = 720.0
+angle_curve = SubResource("CurveTexture_2x2dn")
 scale_max = 10.0
-color = Color(0.955781, 0.970297, 0.903171, 1)
+color = Color(0.932464, 0.927952, 0.116724, 1)
 color_ramp = SubResource("GradientTexture1D_v0jqo")
 
 [node name="LiahCharacterBody2D" type="CharacterBody2D"]
@@ -70,6 +93,8 @@ script = ExtResource("1_y8e03")
 scale = Vector2(0.7, 0.7)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.289939, 0.814575, 0.0427659, 1)
+self_modulate = Color(100, 100, 100, 1)
 emitting = false
 amount = 1000
 process_material = SubResource("ParticleProcessMaterial_yp1ee")
@@ -77,6 +102,8 @@ one_shot = true
 visibility_rect = Rect2(0, 0, 0, 0)
 
 [node name="WandGPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.854902, 0.839216, 0.313726, 1)
+self_modulate = Color(100, 100, 100, 1)
 emitting = false
 amount = 300
 process_material = SubResource("ParticleProcessMaterial_uc35r")

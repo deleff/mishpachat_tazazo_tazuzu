@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ftj2k4i457kq"]
+
+[ext_resource type="Script" path="res://family/family_member_script.gd" id="1_2cib5"]
+[ext_resource type="Texture2D" uid="uid://b5tubdpnl2p06" path="res://family/messi/messi.png" id="2_eir52"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k65dp"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_2cib5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_eir52")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+scale = Vector2(52, 52)
+shape = SubResource("CapsuleShape2D_k65dp")

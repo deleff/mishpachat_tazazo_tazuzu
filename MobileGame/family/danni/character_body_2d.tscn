@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbxxlxtwnl1kj"]
+
+[ext_resource type="Script" path="res://family/family_member_script.gd" id="1_47j3w"]
+[ext_resource type="Texture2D" uid="uid://cyvphp0g5w02f" path="res://family/danni/danni.png" id="2_wvhow"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_btjbg"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_47j3w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_wvhow")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(60, 0)
+scale = Vector2(50, 50)
+shape = SubResource("CapsuleShape2D_btjbg")

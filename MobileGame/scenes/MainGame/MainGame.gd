@@ -16,26 +16,22 @@ var target_member: CharacterBody2D
 var target_member_position: int
 var target_name: String
 
-const adir = preload("res://family/adir/character_body_2d.tscn")
-const ben = preload("res://family/ben/character_body_2d.tscn")
-const dad = preload("res://family/dad/character_body_2d.tscn")
-const dassy = preload("res://family/dassy/character_body_2d.tscn")
-const grandma = preload("res://family/grandma/character_body_2d.tscn")
-const jack = preload("res://family/jack/character_body_2d.tscn")
-const joey = preload("res://family/joey/character_body_2d.tscn")
+const adam = preload("res://family/adam/character_body_2d.tscn")
+#const ahuva = preload("res://family/ahuva/character_body_2d.tscn")
+const barak = preload("res://family/barak/character_body_2d.tscn")
+const danni = preload("res://family/danni/character_body_2d.tscn")
+const gadi = preload("res://family/gadi/character_body_2d.tscn")
+#const guy = preload("res://family/guy/character_body_2d.tscn")
 const liah = preload("res://family/liah/character_body_2d.tscn")
-const meital = preload("res://family/meital/character_body_2d.tscn")
-const melissa = preload("res://family/melissa/character_body_2d.tscn")
-const michelle = preload("res://family/michelle/character_body_2d.tscn")
-const mom = preload("res://family/mom/character_body_2d.tscn")
-const ori = preload("res://family/ori/character_body_2d.tscn")
-const rut = preload("res://family/rut/character_body_2d.tscn")
-const sophie = preload("res://family/sophie/character_body_2d.tscn")
+const libbi = preload("res://family/libbi/character_body_2d.tscn")
+const liron = preload("res://family/liron/character_body_2d.tscn")
+const messi = preload("res://family/messi/character_body_2d.tscn")
+const oranit = preload("res://family/oranit/character_body_2d.tscn")
+const yafit = preload("res://family/yafit/character_body_2d.tscn")
 const yitzchak = preload("res://family/yitzchak/character_body_2d.tscn")
-const zayde = preload("res://family/zayde/character_body_2d.tscn")
-const zevi = preload("res://family/zevi/character_body_2d.tscn")
+const yossi = preload("res://family/yossi/character_body_2d.tscn")
 
-var family_members_array: Array[PackedScene] = [adir,ben,dad,dassy,grandma,jack,joey,liah,meital,melissa,michelle,mom,ori,rut,sophie,yitzchak,zayde,zevi]
+var family_members_array: Array[PackedScene] = [adam,barak,danni,gadi,liah,libbi,liron,messi,oranit,yafit,yitzchak,yossi]
 var family_members_on_screen: Array[String]
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,7 +44,7 @@ func _ready():
 	signal_message_queue.connect("you_win", _on_you_win)
 	signal_message_queue.connect("wrong_person", _on_wrong_person)
 	_set_target_family_member()
-	$RichTextLabel.text = "[outline_size=20][outline_color=black]Playing on {mode} mode[/outline_color][/outline_size]".format({"mode": PersistentData.mode})
+	$RichTextLabel.text = "[outline_size=20][outline_color=black] [/outline_color][/outline_size]".format({"mode": PersistentData.mode})
 	if PersistentData.mode == "easy":
 		family_member_speed = 160
 		spawn_timer_timeout = 2
@@ -80,14 +76,14 @@ func _on_family_member_removed(member_name):
 
 func _on_you_win():
 	if PersistentData.mode == "hard":
-		countdown_timer.start(ceil(countdown_timer.time_left) + 10)
-		score+=10
+		countdown_timer.start(ceil(countdown_timer.time_left) + 5)
+		score+=5
 		_set_target_family_member()
 	else:
 		spawn_timer.queue_free()
 		$SfxAudioStreamPlayer.queue_free()
-		$RichTextLabel.text = "YAAAAY, You found {target_name}!!!".format({"target_name": target_name})
-		$RichTextLabel.position = Vector2(225,330)
+		$RichTextLabel.text = "[outline_size=4][outline_color=black] YAAAAY, You found {target_name}!!! [/outline_color][/outline_size]".format({"target_name": target_name})
+		$RichTextLabel.position = Vector2(250,330)
 		$AudioStreamPlayer.stream = load("res://sfx/win.mp3")
 		$AudioStreamPlayer.play()
 		var firework_timer = Timer.new()
@@ -116,7 +112,7 @@ func _generate_family_member(member,member_position):
 	random_number_generator.randomize()
 	family_member_spawn_x = random_number_generator.randi_range(150,1380)
 	random_number_generator.randomize()
-	family_member_spawn_y = random_number_generator.randi_range(200,600)
+	family_member_spawn_y = random_number_generator.randi_range(240,600)
 	random_number_generator.randomize()
 	family_member_direction_x = random_number_generator.randi_range(-1,1)
 	random_number_generator.randomize()
@@ -126,6 +122,8 @@ func _generate_family_member(member,member_position):
 	next_member.NAME = _get_family_member_name(member_position,"string")
 	if family_members_on_screen.has(next_member.NAME):
 		next_member.queue_free()
+		if PersistentData.mode != "easy":
+			_on_family_member_removed(next_member.NAME)
 	else:
 		family_member_count +=1
 		family_members_on_screen.append(next_member.NAME)
@@ -145,18 +143,19 @@ func _generate_family_member(member,member_position):
 
 func _on_spawn_timer_timeout():
 	if PersistentData.mode == "hard":
-		$TimerRichTextLabel.text = "[outline_size=20][outline_color=black] Time left: {time}[/outline_color][/outline_size]".format({"time": ceil(countdown_timer.time_left)})
+		$TimerRichTextLabel.text = "[outline_size=20][outline_color=black] זמן שנשאר: {time}[/outline_color][/outline_size]".format({"time": ceil(countdown_timer.time_left)})
 		random_number_generator.randomize()
-		var next_family_member_position = random_number_generator.randi_range(0,17)
+		var next_family_member_position = random_number_generator.randi_range(0,11)
 		var next_family_member = family_members_array[next_family_member_position]
 		print("the family member is: ", next_family_member)
 		_generate_family_member(next_family_member,next_family_member_position)
-	$RichTextLabel.text = "[outline_size=20][outline_color=black]Find [rainbow freq=1.0 sat=0.8 val=0.8]{target_name} [/rainbow]![/outline_color][/outline_size]".format({"target_name": target_name})
+	$RichTextLabel.text = "[outline_size=20][outline_color=black]  חפשו את [rainbow freq=1.0 sat=0.8 val=0.8]{target_name} [/rainbow]![/outline_color][/outline_size]".format({"target_name": target_name})
 	random_number_generator.randomize()
-	var next_family_member_position = random_number_generator.randi_range(0,17)
+	var next_family_member_position = random_number_generator.randi_range(0,11)
 	var next_family_member = family_members_array[next_family_member_position]
 	print("the family member is: ", next_family_member)
 	_generate_family_member(next_family_member,next_family_member_position)
+
 
 func _on_countdown_timer_timeout():
 	if PersistentData.mode == "hard":
@@ -177,11 +176,11 @@ func _on_countdown_timer_timeout():
 		spawn_timer.queue_free()
 		$TimerRichTextLabel.queue_free()
 		$RichTextLabel.position = Vector2(200,330)
-		$RichTextLabel.text = "Time's up! \nYour score: {your_score} seconds! \nCurrent high score: {high_score} seconds!".format({"your_score": score, "high_score": PersistentData.high_score})
+		$RichTextLabel.text = "[outline_size=4][outline_color=black]Time's up! \nYour score: {your_score} seconds! \nCurrent high score: {high_score} seconds! [/outline_color][/outline_size]".format({"your_score": score, "high_score": PersistentData.high_score})
 
 
 func _set_target_family_member():
-	target_member_position = random_number_generator.randi_range(0,17)
+	target_member_position = random_number_generator.randi_range(0,11)
 	target_member = family_members_array[target_member_position].instantiate()
 	add_child(target_member)
 	target_name = _get_family_member_name(target_member_position,"string")
@@ -207,62 +206,62 @@ func _get_family_member_name(array_number, return_type):
 	match array_number:
 		0:
 			if return_type == "string":
-				member_name = "Adir"
+				member_name = "אדם"
 			else:
 				member_name = "res://sfx/adir.mp3"
 		1:
 			if return_type == "string":
-				member_name = "Ben"
+				member_name = "ברק"
 			else:
 				member_name = "res://sfx/ben.mp3"
 		2:
 			if return_type == "string":
-				member_name = "Sabba Scott"
+				member_name = "דני"
 			else:
 				member_name = "res://sfx/dad.mp3"
 		3:
 			if return_type == "string":
-				member_name = "Dassy"
+				member_name = "סבא גדי"
 			else:
 				member_name = "res://sfx/dassy.mp3"
 		4:
 			if return_type == "string":
-				member_name = "Savta Rabbah"
+				member_name = "ליאה"
 			else:
 				member_name = "res://sfx/grandma.mp3"
 		5:
 			if return_type == "string":
-				member_name = "Jack"
+				member_name = "ליבי"
 			else:
 				member_name = "res://sfx/jack.mp3"
 		6:
 			if return_type == "string":
-				member_name = "Joey"
+				member_name = "לירון"
 			else:
 				member_name = "res://sfx/joey.mp3"
 		7:
 			if return_type == "string":
-				member_name = "Liah"
+				member_name = "מסי"
 			else:
 				member_name = "res://sfx/liah.mp3"
 		8:
 			if return_type == "string":
-				member_name = "Meital"
+				member_name = "אורנית"
 			else:
 				member_name = "res://sfx/meital.mp3"
 		9:
 			if return_type == "string":
-				member_name = "Melissa"
+				member_name = "יפית"
 			else:
 				member_name = "res://sfx/melissa.mp3"
 		10:
 			if return_type == "string":
-				member_name = "Michelle"
+				member_name = "יצחק"
 			else:
 				member_name = "res://sfx/michelle.mp3"
 		11:
 			if return_type == "string":
-				member_name = "Savta Susan"
+				member_name = "יוסי"
 			else:
 				member_name = "res://sfx/mom.mp3"
 		12:

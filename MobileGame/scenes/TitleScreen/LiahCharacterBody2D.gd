@@ -12,6 +12,10 @@ func _ready():
 	movement_timer.one_shot = false
 	movement_timer.start(1)
 	movement_timer.timeout.connect(_movement)
+	var random_color = Color(randf(), randf(), randf())
+	$GPUParticles2D.process_material.color = random_color
+	var random_color_wand = Color(randf(), randf(), randf())
+	$WandGPUParticles2D.process_material.color = random_color
 	$GPUParticles2D.emitting = true
 	await get_tree().create_timer(1).timeout
 	$LiahSprite2D.flip_h = true

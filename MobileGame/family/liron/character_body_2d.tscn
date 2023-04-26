@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0yc2otkq3iua"]
+
+[ext_resource type="Script" path="res://family/family_member_script.gd" id="1_msj3f"]
+[ext_resource type="Texture2D" uid="uid://cwh7g1yhahm5j" path="res://family/liron/liron.png" id="2_cnbe6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m1m0m"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_msj3f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_cnbe6")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+scale = Vector2(42, 42)
+shape = SubResource("CapsuleShape2D_m1m0m")

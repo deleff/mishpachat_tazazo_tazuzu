@@ -6,6 +6,8 @@ var movement_iterations: int = 0
 var walking_speed
 var shrug: bool = true
 var shrug_iterations: int = 0
+var dance_timer = Timer.new()
+var dance_iteration: int = 1
 
 func _ready():
 	add_child(movement_timer)
@@ -18,6 +20,11 @@ func _ready():
 	shrug_timer.timeout.connect(_shrug)
 	
 	walking_speed = Vector2(1,0) * 150
+	
+	add_child(dance_timer)
+	dance_timer.one_shot = false
+	dance_timer.start(0.25)
+	dance_timer.timeout.connect(_dance)
 
 func _movement():
 	movement_iterations += 1
@@ -31,6 +38,18 @@ func _movement():
 	if movement_iterations >= 8:
 		print("Yitzchak queue free")
 		self.queue_free()
+
+func _dance():
+	if $YitzchakSprite2D.texture != load("res://family/yitzchak/yitzchak_shrug.png"):
+		if dance_iteration == 1:
+			$YitzchakSprite2D.rotate(0.04)
+			$YitzchakSprite2D.position.y += 10
+			dance_iteration+=1
+		else:
+			$YitzchakSprite2D.rotate(-0.04)
+			$YitzchakSprite2D.position.y -= 10
+			dance_iteration = 1
+
 			
 func _shrug():
 	if $YitzchakSprite2D.texture == load("res://family/yitzchak/yitzchak_shrug.png"):

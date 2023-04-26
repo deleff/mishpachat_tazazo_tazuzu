@@ -1,9 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://ioelfse7m6ik"]
+[gd_scene load_steps=12 format=3 uid="uid://ioelfse7m6ik"]
 
 [ext_resource type="Script" path="res://scenes/MainGame/MainGame.gd" id="2"]
 [ext_resource type="Theme" uid="uid://csvmo7ycecrp0" path="res://fonts/new_theme.tres" id="2_fkfg5"]
 [ext_resource type="Texture2D" uid="uid://drw2n4p2wrejc" path="res://scenes/MainGame/back_button.png" id="2_gv4ad"]
 [ext_resource type="Script" path="res://scenes/MainGame/SignalMessageQueue.gd" id="4_cjflm"]
+[ext_resource type="Texture2D" uid="uid://fonuyisg7m2r" path="res://scenes/MainGame/main_background.png" id="5_e2gxg"]
+
+[sub_resource type="Environment" id="Environment_85rjq"]
+background_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.65
+glow_strength = 2.0
+glow_bloom = 1.0
+glow_hdr_threshold = 0.08
+glow_hdr_luminance_cap = 29.01
+
+[sub_resource type="Curve" id="Curve_sgtf7"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0.00261471, 263.138), 0.0, 0.0, 0, 0, Vector2(0.993774, -243.403), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0esvb"]
+curve = SubResource("Curve_sgtf7")
 
 [sub_resource type="Curve" id="Curve_atgv5"]
 min_value = -200.0
@@ -19,7 +39,7 @@ curve = SubResource("Curve_atgv5")
 particle_flag_disable_z = true
 direction = Vector3(0, 0, 0)
 spread = 180.0
-gravity = Vector3(0, 0, 0)
+gravity = Vector3(0, 30, 0)
 initial_velocity_min = 300.0
 initial_velocity_max = 600.0
 orbit_velocity_min = 0.0
@@ -27,6 +47,8 @@ orbit_velocity_max = 0.0
 linear_accel_min = 400.0
 linear_accel_max = 400.0
 linear_accel_curve = SubResource("CurveTexture_tkf7q")
+angle_max = 720.0
+angle_curve = SubResource("CurveTexture_0esvb")
 scale_min = 5.0
 scale_max = 20.0
 color = Color(1, 0.113725, 0.137255, 1)
@@ -34,18 +56,32 @@ color = Color(1, 0.113725, 0.137255, 1)
 [node name="MainGame" type="Node2D"]
 script = ExtResource("2")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_85rjq")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(4, 4, 4, 1)
+emitting = false
+amount = 400
+process_material = SubResource("ParticleProcessMaterial_rmb1j")
+lifetime = 0.3
+one_shot = true
+visibility_rect = Rect2(0, 0, 0, 0)
+
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(800, 160)
-offset_right = 800.0
-offset_bottom = 190.0
+layout_direction = 3
+offset_left = -1800.0
+offset_right = -1000.0
+offset_bottom = 185.0
 scale = Vector2(1.5, 1.5)
 size_flags_stretch_ratio = 2.0
 theme = ExtResource("2_fkfg5")
 bbcode_enabled = true
 
 [node name="TitleScreenTouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(0, 650)
-scale = Vector2(0.3, 0.3)
+position = Vector2(0, 635)
+scale = Vector2(0.35, 0.35)
 texture_normal = ExtResource("2_gv4ad")
 texture_pressed = ExtResource("2_gv4ad")
 
@@ -54,10 +90,10 @@ script = ExtResource("4_cjflm")
 
 [node name="TimerRichTextLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(60, 160)
-offset_left = 950.0
-offset_top = 5.0
-offset_right = 1300.0
-offset_bottom = 165.0
+layout_direction = 3
+offset_left = -350.0
+offset_top = 3.0
+offset_bottom = 163.0
 scale = Vector2(1.5, 1.5)
 theme = ExtResource("2_fkfg5")
 bbcode_enabled = true
@@ -66,10 +102,12 @@ bbcode_enabled = true
 
 [node name="SfxAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-emitting = false
-amount = 200
-process_material = SubResource("ParticleProcessMaterial_rmb1j")
-lifetime = 0.3
-one_shot = true
-visibility_rect = Rect2(0, 0, 0, 0)
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+show_behind_parent = true
+offset_left = -511.0
+offset_top = -214.0
+offset_right = 889.0
+offset_bottom = 586.0
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("5_e2gxg")

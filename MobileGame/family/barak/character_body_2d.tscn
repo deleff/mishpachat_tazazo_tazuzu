@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bt541kxxm5b3w"]
+
+[ext_resource type="Script" path="res://family/family_member_script.gd" id="1_cscgi"]
+[ext_resource type="Texture2D" uid="uid://cb8f0awl2f5cq" path="res://family/barak/barak.png" id="2_s13bv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qhv22"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_cscgi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s13bv")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+scale = Vector2(42, 42)
+shape = SubResource("CapsuleShape2D_qhv22")
