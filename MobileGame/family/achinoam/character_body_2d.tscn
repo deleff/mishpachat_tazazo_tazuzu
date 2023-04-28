@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://d06icrgqdlngm"]
+
+[ext_resource type="Script" path="res://family/family_member_script.gd" id="1_dfck6"]
+[ext_resource type="Texture2D" uid="uid://byjqhna5xr1vv" path="res://family/achinoam/achinoam.png" id="2_ovwil"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0s6hi"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(0.22, 0.22)
+script = ExtResource("1_dfck6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ovwil")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(100, 20)
+rotation = 1.5708
+scale = Vector2(45, 45)
+shape = SubResource("CircleShape2D_0s6hi")

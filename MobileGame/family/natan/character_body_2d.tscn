@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://m33rc0dkayn6"]
+
+[ext_resource type="Script" path="res://family/family_member_script.gd" id="1_asc7o"]
+[ext_resource type="Texture2D" uid="uid://y45o0fd17m7v" path="res://family/natan/natan.png" id="2_2jgbg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jxakp"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_asc7o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2jgbg")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(-50, 0)
+scale = Vector2(51, 51)
+shape = SubResource("CapsuleShape2D_jxakp")

@@ -16,22 +16,31 @@ var target_member: CharacterBody2D
 var target_member_position: int
 var target_name: String
 
-const adam = preload("res://family/adam/character_body_2d.tscn")
-#const ahuva = preload("res://family/ahuva/character_body_2d.tscn")
-const barak = preload("res://family/barak/character_body_2d.tscn")
-const danni = preload("res://family/danni/character_body_2d.tscn")
-const gadi = preload("res://family/gadi/character_body_2d.tscn")
-#const guy = preload("res://family/guy/character_body_2d.tscn")
-const liah = preload("res://family/liah/character_body_2d.tscn")
-const libbi = preload("res://family/libbi/character_body_2d.tscn")
-const liron = preload("res://family/liron/character_body_2d.tscn")
-const messi = preload("res://family/messi/character_body_2d.tscn")
-const oranit = preload("res://family/oranit/character_body_2d.tscn")
-const yafit = preload("res://family/yafit/character_body_2d.tscn")
+const achinoam = preload("res://family/achinoam/character_body_2d.tscn")
+const adam     = preload("res://family/adam/character_body_2d.tscn")
+const ahuva    = preload("res://family/ahuva/character_body_2d.tscn")
+const avigail  = preload("res://family/avigail/character_body_2d.tscn")
+const barak    = preload("res://family/barak/character_body_2d.tscn")
+const danni    = preload("res://family/danni/character_body_2d.tscn")
+const fenti    = preload("res://family/fenti/character_body_2d.tscn")
+const gadi     = preload("res://family/gadi/character_body_2d.tscn")
+const guy      = preload("res://family/guy/character_body_2d.tscn")
+const liah     = preload("res://family/liah/character_body_2d.tscn")
+const libbi    = preload("res://family/libbi/character_body_2d.tscn")
+const liron    = preload("res://family/liron/character_body_2d.tscn")
+const maoz     = preload("res://family/maoz/character_body_2d.tscn")
+const messi    = preload("res://family/messi/character_body_2d.tscn")
+const moran    = preload("res://family/moran/character_body_2d.tscn")
+const natan    = preload("res://family/natan/character_body_2d.tscn")
+const oranit   = preload("res://family/oranit/character_body_2d.tscn")
+const sivan    = preload("res://family/sivan/character_body_2d.tscn")
+const tali     = preload("res://family/tali/character_body_2d.tscn")
+const tehilla  = preload("res://family/tehilla/character_body_2d.tscn")
+const yafit    = preload("res://family/yafit/character_body_2d.tscn")
 const yitzchak = preload("res://family/yitzchak/character_body_2d.tscn")
-const yossi = preload("res://family/yossi/character_body_2d.tscn")
+const yossi    = preload("res://family/yossi/character_body_2d.tscn")
 
-var family_members_array: Array[PackedScene] = [adam,barak,danni,gadi,liah,libbi,liron,messi,oranit,yafit,yitzchak,yossi]
+var family_members_array: Array[PackedScene] = [achinoam,adam,ahuva,avigail,barak,danni,fenti,gadi,guy,liah,libbi,liron,maoz,messi,moran,natan,oranit,sivan,tali,tehilla,yafit,yitzchak,yossi]
 var family_members_on_screen: Array[String]
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -82,7 +91,7 @@ func _on_you_win():
 	else:
 		spawn_timer.queue_free()
 		$SfxAudioStreamPlayer.queue_free()
-		$RichTextLabel.text = "[outline_size=4][outline_color=black] YAAAAY, You found {target_name}!!! [/outline_color][/outline_size]".format({"target_name": target_name})
+		$RichTextLabel.text = "[outline_size=4][outline_color=black] מצאתם את {target_name} !!! [/outline_color][/outline_size]".format({"target_name": target_name})
 		$RichTextLabel.position = Vector2(250,330)
 		$AudioStreamPlayer.stream = load("res://sfx/win.mp3")
 		$AudioStreamPlayer.play()
@@ -145,13 +154,13 @@ func _on_spawn_timer_timeout():
 	if PersistentData.mode == "hard":
 		$TimerRichTextLabel.text = "[outline_size=20][outline_color=black] זמן שנשאר: {time}[/outline_color][/outline_size]".format({"time": ceil(countdown_timer.time_left)})
 		random_number_generator.randomize()
-		var next_family_member_position = random_number_generator.randi_range(0,11)
+		var next_family_member_position = random_number_generator.randi_range(0,(family_members_array.size() - 1))
 		var next_family_member = family_members_array[next_family_member_position]
 		print("the family member is: ", next_family_member)
 		_generate_family_member(next_family_member,next_family_member_position)
 	$RichTextLabel.text = "[outline_size=20][outline_color=black]  חפשו את [rainbow freq=1.0 sat=0.8 val=0.8]{target_name} [/rainbow]![/outline_color][/outline_size]".format({"target_name": target_name})
 	random_number_generator.randomize()
-	var next_family_member_position = random_number_generator.randi_range(0,11)
+	var next_family_member_position = random_number_generator.randi_range(0,(family_members_array.size() - 1))
 	var next_family_member = family_members_array[next_family_member_position]
 	print("the family member is: ", next_family_member)
 	_generate_family_member(next_family_member,next_family_member_position)
@@ -180,7 +189,7 @@ func _on_countdown_timer_timeout():
 
 
 func _set_target_family_member():
-	target_member_position = random_number_generator.randi_range(0,11)
+	target_member_position = random_number_generator.randi_range(0,(family_members_array.size() - 1))
 	target_member = family_members_array[target_member_position].instantiate()
 	add_child(target_member)
 	target_name = _get_family_member_name(target_member_position,"string")
@@ -206,92 +215,117 @@ func _get_family_member_name(array_number, return_type):
 	match array_number:
 		0:
 			if return_type == "string":
-				member_name = "אדם"
+				member_name = "אחינועם"
 			else:
 				member_name = "res://sfx/adir.mp3"
 		1:
 			if return_type == "string":
-				member_name = "ברק"
+				member_name = "אדם"
 			else:
 				member_name = "res://sfx/ben.mp3"
 		2:
 			if return_type == "string":
-				member_name = "דני"
+				member_name = "אהובה"
 			else:
 				member_name = "res://sfx/dad.mp3"
 		3:
 			if return_type == "string":
-				member_name = "סבא גדי"
+				member_name = "אביגיל"
 			else:
 				member_name = "res://sfx/dassy.mp3"
 		4:
 			if return_type == "string":
-				member_name = "ליאה"
+				member_name = "ברק"
 			else:
 				member_name = "res://sfx/grandma.mp3"
 		5:
 			if return_type == "string":
-				member_name = "ליבי"
+				member_name = "דני"
 			else:
 				member_name = "res://sfx/jack.mp3"
 		6:
 			if return_type == "string":
-				member_name = "לירון"
+				member_name = "פנטי"
 			else:
 				member_name = "res://sfx/joey.mp3"
 		7:
 			if return_type == "string":
-				member_name = "מסי"
+				member_name = "גדי"
 			else:
 				member_name = "res://sfx/liah.mp3"
 		8:
 			if return_type == "string":
-				member_name = "אורנית"
+				member_name = "גאי"
 			else:
 				member_name = "res://sfx/meital.mp3"
 		9:
 			if return_type == "string":
-				member_name = "יפית"
+				member_name = "ליאה"
 			else:
 				member_name = "res://sfx/melissa.mp3"
 		10:
 			if return_type == "string":
-				member_name = "יצחק"
+				member_name = "ליבי"
 			else:
 				member_name = "res://sfx/michelle.mp3"
 		11:
 			if return_type == "string":
-				member_name = "יוסי"
+				member_name = "לירון"
 			else:
 				member_name = "res://sfx/mom.mp3"
 		12:
 			if return_type == "string":
-				member_name = "Ori"
+				member_name = "מעוז"
 			else:
 				member_name = "res://sfx/ori.mp3"
 		13:
 			if return_type == "string":
-				member_name = "Ruth"
+				member_name = "מסי"
 			else:
 				member_name = "res://sfx/rut.mp3"
 		14:
 			if return_type == "string":
-				member_name = "Sophie"
+				member_name = "מורן"
 			else:
 				member_name = "res://sfx/sophie.mp3"
 		15:
 			if return_type == "string":
-				member_name = "David"
+				member_name = "נתן"
 			else:
 				member_name = "res://sfx/yitzchak.mp3"
 		16:
 			if return_type == "string":
-				member_name = "Sabba Rabbah"
+				member_name = "אורנית"
 			else:
 				member_name = "res://sfx/zayde.mp3"
 		17:
 			if return_type == "string":
-				member_name = "Zev"
+				member_name = "סיון"
+			else:
+				member_name = "res://sfx/zevi.mp3"
+		18:
+			if return_type == "string":
+				member_name = "טלי"
+			else:
+				member_name = "res://sfx/zevi.mp3"
+		19:
+			if return_type == "string":
+				member_name = "תהילה"
+			else:
+				member_name = "res://sfx/zevi.mp3"
+		20:
+			if return_type == "string":
+				member_name = "יפית"
+			else:
+				member_name = "res://sfx/zevi.mp3"
+		21:
+			if return_type == "string":
+				member_name = "יצחק"
+			else:
+				member_name = "res://sfx/zevi.mp3"
+		22:
+			if return_type == "string":
+				member_name = "יוסי"
 			else:
 				member_name = "res://sfx/zevi.mp3"
 	return member_name

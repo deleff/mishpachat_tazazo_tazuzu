@@ -6,10 +6,11 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dwbk4"]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.35, 0.35)
 script = ExtResource("1_p1mks")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.6, 0.6, 0.6, 1)
 texture = ExtResource("2_sxpko")
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
