@@ -1,6 +1,7 @@
 extends Node2D
 
 var spawn_timer = Timer.new()
+var num_spawn_timer_timeouts: int = 0
 var spawn_timer_timeout: int
 var score: int = 60
 var countdown_timer = Timer.new()
@@ -159,11 +160,18 @@ func _on_spawn_timer_timeout():
 		print("the family member is: ", next_family_member)
 		_generate_family_member(next_family_member,next_family_member_position)
 	$RichTextLabel.text = "[outline_size=20][outline_color=black]  חפשו את [rainbow freq=1.0 sat=0.8 val=0.8]{target_name} [/rainbow]![/outline_color][/outline_size]".format({"target_name": target_name})
-	random_number_generator.randomize()
-	var next_family_member_position = random_number_generator.randi_range(0,(family_members_array.size() - 1))
-	var next_family_member = family_members_array[next_family_member_position]
-	print("the family member is: ", next_family_member)
-	_generate_family_member(next_family_member,next_family_member_position)
+	if num_spawn_timer_timeouts > 2 && floor(num_spawn_timer_timeouts) % 11 == 0:
+		var next_family_member_position = target_member_position
+		var next_family_member = family_members_array[target_member_position]
+		print("the family member is: ", next_family_member)
+		_generate_family_member(next_family_member,next_family_member_position)
+	else:
+		random_number_generator.randomize()
+		var next_family_member_position = random_number_generator.randi_range(0,(family_members_array.size() - 1))
+		var next_family_member = family_members_array[next_family_member_position]
+		print("the family member is: ", next_family_member)
+		_generate_family_member(next_family_member,next_family_member_position)
+	num_spawn_timer_timeouts+=1
 
 
 func _on_countdown_timer_timeout():
