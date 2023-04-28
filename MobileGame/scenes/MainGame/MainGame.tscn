@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://ioelfse7m6ik"]
+[gd_scene load_steps=11 format=3 uid="uid://ioelfse7m6ik"]
 
 [ext_resource type="Script" path="res://scenes/MainGame/MainGame.gd" id="2"]
 [ext_resource type="Theme" uid="uid://csvmo7ycecrp0" path="res://fonts/new_theme.tres" id="2_fkfg5"]
 [ext_resource type="Texture2D" uid="uid://drw2n4p2wrejc" path="res://scenes/MainGame/back_button.png" id="2_gv4ad"]
 [ext_resource type="Script" path="res://scenes/MainGame/SignalMessageQueue.gd" id="4_cjflm"]
-[ext_resource type="Texture2D" uid="uid://fonuyisg7m2r" path="res://scenes/MainGame/main_background.png" id="5_e2gxg"]
 
 [sub_resource type="Environment" id="Environment_85rjq"]
 background_mode = 3
@@ -103,11 +102,9 @@ bbcode_enabled = true
 [node name="SfxAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="."]
-visible = false
 show_behind_parent = true
-offset_left = -511.0
-offset_top = -214.0
-offset_right = 889.0
-offset_bottom = 586.0
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("5_e2gxg")
+offset_left = -16.0
+offset_top = -144.0
+offset_right = 1364.0
+offset_bottom = 656.0
+scale = Vector2(1.1, 1.1)

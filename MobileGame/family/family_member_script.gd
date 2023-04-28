@@ -14,19 +14,21 @@ var random_number_generator = RandomNumberGenerator.new()
 
 func _ready():
 	random_number_generator.randomize()
+	if PersistentData.level == "space" && PersistentData.mode != "easy":
+		$Sprite2D.rotate(random_number_generator.randi_range(1,365))
 	if random_number_generator.randi_range(0,1) == 1:
 		DANCE_DIRECTION = 1
 	else:
 		DANCE_DIRECTION = -1
 	$TouchScreenButton.pressed.connect(_tapped)
 	signal_message_queue.connect("you_win", _on_you_win)
-	if PersistentData.mode != "easy":
-			var dance_timer = Timer.new()
-			add_child(dance_timer)
-			dance_timer.one_shot = false
-			dance_timer.start(0.25)
-			dance_timer.timeout.connect(_dance)
-
+	if PersistentData.mode != "easy" && PersistentData.level != "space":
+		var dance_timer = Timer.new()
+		add_child(dance_timer)
+		dance_timer.one_shot = false
+		dance_timer.start(0.25)
+		dance_timer.timeout.connect(_dance)
+			
 func _tapped():
 	if IS_TARGET == true:
 		print("YOU WIN!!")
@@ -48,6 +50,8 @@ func _on_you_win():
 
 func _physics_process(delta):
 	velocity = TARGET_POSITION * SPEED
+	if PersistentData.mode != "easy" && PersistentData.level == "space":
+		$Sprite2D.rotate(DANCE_DIRECTION * 0.01)
 	move_and_slide()
 	
 	if (self.global_position.x < 0 || self.global_position.x > 1480):

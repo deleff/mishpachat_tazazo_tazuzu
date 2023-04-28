@@ -45,6 +45,7 @@ var family_members_array: Array[PackedScene] = [achinoam,adam,ahuva,avigail,bara
 var family_members_on_screen: Array[String]
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$TextureRect.texture = load("res://scenes/MainGame/{level}.png".format({"level": PersistentData.level}))
 	add_child(countdown_timer)
 	countdown_timer.start(60)
 	countdown_timer.one_shot = true
@@ -129,6 +130,16 @@ func _generate_family_member(member,member_position):
 	family_member_direction_y = random_number_generator.randi_range(-1,1)
 	var next_member = member.instantiate()
 	add_child(next_member)
+	
+	if PersistentData.mode != "easy":
+		if PersistentData.level == "water":
+			if family_member_direction_x == 1:
+				next_member.rotate(70)
+			elif family_member_direction_x == -1:
+				next_member.rotate(-70)
+			elif family_member_direction_x == 0 && family_member_direction_y == 0:
+				next_member.rotate(70)
+	
 	next_member.NAME = _get_family_member_name(member_position,"string")
 	if family_members_on_screen.has(next_member.NAME):
 		next_member.queue_free()
@@ -233,7 +244,7 @@ func _get_family_member_name(array_number, return_type):
 				member_name = "res://sfx/ben.mp3"
 		2:
 			if return_type == "string":
-				member_name = "אהובה"
+				member_name = "סבתא אהובה"
 			else:
 				member_name = "res://sfx/dad.mp3"
 		3:
@@ -258,7 +269,7 @@ func _get_family_member_name(array_number, return_type):
 				member_name = "res://sfx/joey.mp3"
 		7:
 			if return_type == "string":
-				member_name = "גדי"
+				member_name = "סבא גדי"
 			else:
 				member_name = "res://sfx/liah.mp3"
 		8:

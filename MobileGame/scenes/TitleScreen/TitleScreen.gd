@@ -39,6 +39,23 @@ func _ready():
 		tiny_dancer_timer.timeout.connect(_tiny_dance)
 	$AudioStreamPlayer.play()
 
+func _choose_level():
+	random_number_generator.randomize()
+	var level = random_number_generator.randi_range(4,5)
+	match level:
+		1:
+			PersistentData.level = "bus"
+		2:
+			PersistentData.level = "park"
+		3:
+			PersistentData.level = "shire"
+		4:
+			PersistentData.level = "space"
+		5:
+			PersistentData.level = "water"
+		6:
+			PersistentData.level = "park"
+
 func _on_easy_mode_pressed():
 	$AudioStreamPlayer.stream = load("res://sfx/select.mp3")
 	$AudioStreamPlayer.play()
@@ -46,6 +63,7 @@ func _on_easy_mode_pressed():
 	print("easy pressed")
 	get_tree().change_scene_to_file("res://scenes/MainGame/MainGame.tscn")
 	PersistentData.mode = "easy"
+	_choose_level()
 
 func _on_medium_mode_pressed():
 	$AudioStreamPlayer.stream = load("res://sfx/select.mp3")
@@ -54,6 +72,7 @@ func _on_medium_mode_pressed():
 	print("medium pressed")
 	get_tree().change_scene_to_file("res://scenes/MainGame/MainGame.tscn")
 	PersistentData.mode = "medium"
+	_choose_level()
 
 func _on_hard_mode_pressed():
 	$AudioStreamPlayer.stream = load("res://sfx/select.mp3")
@@ -62,6 +81,7 @@ func _on_hard_mode_pressed():
 	print("hard pressed")
 	get_tree().change_scene_to_file("res://scenes/MainGame/MainGame.tscn")
 	PersistentData.mode = "hard"
+	_choose_level()
 
 func _mischief():
 	if mischief_iterations % 5 == 0 && mischief_iterations != 0:
