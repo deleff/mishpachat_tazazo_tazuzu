@@ -1,13 +1,62 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfta85r0xedfr"]
+[gd_scene load_steps=14 format=3 uid="uid://cfta85r0xedfr"]
 
 [ext_resource type="Script" path="res://scenes/TitleScreen/TitleScreen.gd" id="1"]
 [ext_resource type="Theme" uid="uid://csvmo7ycecrp0" path="res://fonts/new_theme.tres" id="2_vs5wq"]
+[ext_resource type="Texture2D" uid="uid://fonuyisg7m2r" path="res://scenes/MainGame/main_background.png" id="3_66obu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hth7"]
 size = Vector2(30, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kteh2"]
 size = Vector2(30, 10)
+
+[sub_resource type="Curve" id="Curve_035m6"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 351.947), 0.0, 0.0, 0, 0, Vector2(1, -335.501), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1pmvp"]
+curve = SubResource("Curve_035m6")
+
+[sub_resource type="Gradient" id="Gradient_5fico"]
+offsets = PackedFloat32Array(0, 0.713996, 0.860041)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g4xjt"]
+gradient = SubResource("Gradient_5fico")
+
+[sub_resource type="Curve" id="Curve_mm1s6"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2gqej"]
+width = 50
+curve = SubResource("Curve_mm1s6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mkafp"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_min = 300.0
+linear_accel_max = 300.0
+linear_accel_curve = SubResource("CurveTexture_2gqej")
+angle_max = 720.0
+angle_curve = SubResource("CurveTexture_1pmvp")
+scale_min = 5.0
+scale_max = 20.0
+color = Color(0.305882, 0.733333, 0.368627, 1)
+color_ramp = SubResource("GradientTexture1D_g4xjt")
+hue_variation_max = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6gm3d"]
 size = Vector2(30, 10)
@@ -16,7 +65,7 @@ size = Vector2(30, 10)
 script = ExtResource("1")
 
 [node name="EasyModeTouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(600, 160)
+position = Vector2(720, 160)
 scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_1hth7")
 
@@ -40,7 +89,7 @@ custom_effects = [null]
 text_direction = 2
 
 [node name="MediumModeTouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(600, 280)
+position = Vector2(720, 280)
 scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_kteh2")
 
@@ -63,8 +112,21 @@ bbcode_enabled = true
 custom_effects = [null]
 text_direction = 2
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="MediumModeTouchScreenButton"]
+modulate = Color(0.289939, 0.814575, 0.0427659, 1)
+self_modulate = Color(100, 100, 100, 1)
+scale = Vector2(0.5, 0.5)
+emitting = false
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_mkafp")
+lifetime = 0.2
+one_shot = true
+visibility_rect = Rect2(0, 0, 0, 0)
+trail_lifetime = 0.01
+trail_sections = 2
+
 [node name="HardModeTouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(600, 400)
+position = Vector2(720, 400)
 scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_6gm3d")
 
@@ -83,13 +145,10 @@ text_direction = 2
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="."]
-visible = false
 show_behind_parent = true
-offset_left = -646.0
-offset_top = -286.0
-offset_right = 1274.0
-offset_bottom = 794.0
-scale = Vector2(1.5, 1.5)
-
-[node name="TinyDancerSprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
+offset_left = -16.0
+offset_top = -144.0
+offset_right = 1364.0
+offset_bottom = 656.0
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("3_66obu")

@@ -8,6 +8,8 @@ var shrug: bool = true
 var shrug_iterations: int = 0
 
 func _ready():
+	if PersistentData.title_screen_times_tapped > 0:
+		self.queue_free()
 	add_child(movement_timer)
 	movement_timer.one_shot = false
 	movement_timer.start(1)
@@ -21,6 +23,10 @@ func _ready():
 	$LiahSprite2D.flip_h = true
 	$LiahSprite2D.texture = load("res://family/liah/liah_shrug.png")
 
+func _process(delta):
+	if PersistentData.title_screen_times_tapped > 0:
+		self.queue_free()
+
 func _movement():
 	movement_iterations += 1
 	if movement_iterations == 4:
@@ -33,7 +39,6 @@ func _movement():
 		$WandGPUParticles2D.position.x -= 350
 		$WandGPUParticles2D.position.y -= 284
 		$WandGPUParticles2D.emitting = true
-		PersistentData.title_screen_times_tapped+=1
 	elif movement_iterations == 11:
 		$LiahSprite2D.position.y -= 120
 		$LiahSprite2D.texture = load("res://family/liah/liah.png")

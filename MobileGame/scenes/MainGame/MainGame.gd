@@ -165,13 +165,16 @@ func _generate_family_member(member,member_position):
 
 func _on_spawn_timer_timeout():
 	if PersistentData.mode == "hard":
-		$TimerRichTextLabel.text = "[outline_size=20][outline_color=black] זמן שנשאר: {time}[/outline_color][/outline_size]".format({"time": ceil(countdown_timer.time_left)})
+		if ceil(countdown_timer.time_left) > 10:
+			$TimerRichTextLabel.text = "[outline_size=20][outline_color=black] זמן שנשאר:  {time}  [/outline_color][/outline_size]".format({"time": ceil(countdown_timer.time_left)})
+		else:
+			$TimerRichTextLabel.text = "[outline_size=20][outline_color=black] זמן שנשאר:  [shake]{time}  [/shake][/outline_color][/outline_size]".format({"time": ceil(countdown_timer.time_left)})
 		random_number_generator.randomize()
 		var next_family_member_position = random_number_generator.randi_range(0,(family_members_array.size() - 1))
 		var next_family_member = family_members_array[next_family_member_position]
 		print("the family member is: ", next_family_member)
 		_generate_family_member(next_family_member,next_family_member_position)
-	$RichTextLabel.text = "[outline_size=20][outline_color=black]  חפשו את [rainbow freq=1.0 sat=0.8 val=0.8]{target_name} [/rainbow]![/outline_color][/outline_size]".format({"target_name": target_name})
+	$RichTextLabel.text = "[right][outline_size=20][outline_color=black] חפשו את [rainbow freq=1.0 sat=0.8 val=0.8]{target_name}[/rainbow]![/outline_color][/outline_size][/right]".format({"target_name": target_name})
 	if num_spawn_timer_timeouts > 2 && floor(num_spawn_timer_timeouts) % 11 == 0:
 		var next_family_member_position = target_member_position
 		var next_family_member = family_members_array[target_member_position]

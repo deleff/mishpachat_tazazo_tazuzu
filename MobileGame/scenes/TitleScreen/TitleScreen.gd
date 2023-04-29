@@ -5,17 +5,15 @@ var tiny_dance_flip: bool = false
 var tiny_dance_flip_iterations: int = 0
 var mischief_iterations: int = 0
 
-var TIMES_TAPPED: int = 0
-
 const yitzchak_scene = preload("res://scenes/TitleScreen/yitzchak_character_body_2d.tscn")
 const liah_scene = preload("res://scenes/TitleScreen/liah_character_body_2d.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if PersistentData.title_screen_times_tapped > 1:
-		get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]קל[/outline_color][/outline_size][/wave]")
-		get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]בינוני[/outline_color][/outline_size][/wave]")
-		get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]קשה[/outline_color][/outline_size][/wave]")
+	if PersistentData.show_title == true:
+		get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]   קל  [/outline_color][/outline_size][/wave]")
+		get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black] בינוני  [/outline_color][/outline_size][/wave]")
+		get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black] קשה  [/outline_color][/outline_size][/wave]")
 
 	print("starting")
 	$EasyModeTouchScreenButton.pressed.connect(_on_easy_mode_pressed)
@@ -23,18 +21,12 @@ func _ready():
 	$HardModeTouchScreenButton.pressed.connect(_on_hard_mode_pressed)
 	if PersistentData.title_screen_first_time == true:
 		$AudioStreamPlayer.stream = load("res://sfx/title_screen.mp3")
-		$TextureRect.texture = load("res://scenes/TitleScreen/title_screen_1.png")
 		var mischief_timer = Timer.new()
 		add_child(mischief_timer)
 		mischief_timer.one_shot = false
 		mischief_timer.start(1)
 		mischief_timer.timeout.connect(_mischief)
 	else:
-		random_number_generator.randomize()
-		if random_number_generator.randi_range(0,1) == 0:
-			$TextureRect.texture = load("res://scenes/TitleScreen/title_screen_2.png")
-		else:
-			$TextureRect.texture = load("res://scenes/TitleScreen/title_screen_3.png")
 		$TextureRect.scale = Vector2(1,1)
 		$TextureRect.position = Vector2(0,-22)
 		$AudioStreamPlayer.stream = load("res://sfx/title_screen_2.mp3")
@@ -46,26 +38,25 @@ func _ready():
 	$AudioStreamPlayer.play()
 
 func _process(delta):
-	if PersistentData.title_screen_times_tapped == 1:
-			get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]משפחת[/outline_color][/outline_size][/wave]")
-			get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]תזזו[/outline_color][/outline_size][/wave]")
-			get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]תזוזו[/outline_color][/outline_size][/wave]")
+	if PersistentData.show_title == true && PersistentData.title_screen_times_tapped < 1:
+		get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black] משפחת  [/outline_color][/outline_size][/wave]")
+		get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]    תזזו  [/outline_color][/outline_size][/wave]")
+		get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]    תזוזו  [/outline_color][/outline_size][/wave]")
 	
 func _input(event):
 	if event is InputEventScreenTouch && event.is_pressed():
 		PersistentData.title_screen_times_tapped+=1
-		if PersistentData.title_screen_times_tapped == 1:
-			get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]משפחת[/outline_color][/outline_size][/wave]")
-			get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]תזזו[/outline_color][/outline_size][/wave]")
-			get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]תזוזו[/outline_color][/outline_size][/wave]")
-		elif PersistentData.title_screen_times_tapped > 1:
-			get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]קל[/outline_color][/outline_size][/wave]")
-			get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]בינוני[/outline_color][/outline_size][/wave]")
-			get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]קשה[/outline_color][/outline_size][/wave]")
+		if PersistentData.show_title == false:
+			get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black] משפחת  [/outline_color][/outline_size][/wave]")
+			get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]    תזזו  [/outline_color][/outline_size][/wave]")
+			get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]    תזוזו  [/outline_color][/outline_size][/wave]")
+			PersistentData.show_title = true
+		elif PersistentData.show_title == true:
+			get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]   קל  [/outline_color][/outline_size][/wave]")
+			get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black] בינוני  [/outline_color][/outline_size][/wave]")
+			get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black] קשה  [/outline_color][/outline_size][/wave]")
 
 		
-
-
 func _choose_level():
 	random_number_generator.randomize()
 	var level = random_number_generator.randi_range(1,7)
@@ -122,7 +113,14 @@ func _mischief():
 		var yitzchak = yitzchak_scene.instantiate()
 		add_child(yitzchak)
 		yitzchak.position = Vector2(-80,550)
+	elif mischief_iterations == 11 && PersistentData.title_screen_times_tapped < 1:
+		var random_color = Color(randf(), randf(), randf())
+		get_node("MediumModeTouchScreenButton/GPUParticles2D").process_material.color = random_color
+		get_node("MediumModeTouchScreenButton/GPUParticles2D").emitting = true
+	elif mischief_iterations == 12:	
+		PersistentData.show_title = true
 	mischief_iterations += 1
+	print("mischief_iterations: ", mischief_iterations)
 
 func _tiny_dance():
 	pass

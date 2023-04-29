@@ -8,14 +8,14 @@ max_value = 360.0
 _data = [Vector2(0, 351.947), 0.0, 0.0, 0, 0, Vector2(1, -335.501), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_1pmvp"]
+[sub_resource type="CurveTexture" id="CurveTexture_wlgcl"]
 curve = SubResource("Curve_nhubv")
 
 [sub_resource type="Gradient" id="Gradient_n7cnu"]
 offsets = PackedFloat32Array(0, 0.713996, 0.860041)
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_g4xjt"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xif8c"]
 gradient = SubResource("Gradient_n7cnu")
 
 [sub_resource type="Curve" id="Curve_yuggp"]
@@ -24,7 +24,7 @@ max_value = 200.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_2gqej"]
+[sub_resource type="CurveTexture" id="CurveTexture_yvs4i"]
 width = 50
 curve = SubResource("Curve_yuggp")
 
@@ -41,13 +41,13 @@ orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 linear_accel_min = 300.0
 linear_accel_max = 300.0
-linear_accel_curve = SubResource("CurveTexture_2gqej")
+linear_accel_curve = SubResource("CurveTexture_yvs4i")
 angle_max = 720.0
-angle_curve = SubResource("CurveTexture_1pmvp")
+angle_curve = SubResource("CurveTexture_wlgcl")
 scale_min = 5.0
 scale_max = 20.0
 color = Color(0.305882, 0.733333, 0.368627, 1)
-color_ramp = SubResource("GradientTexture1D_g4xjt")
+color_ramp = SubResource("GradientTexture1D_xif8c")
 hue_variation_max = 1.0
 
 [sub_resource type="Curve" id="Curve_st1ca"]
@@ -109,3 +109,4 @@ amount = 300
 process_material = SubResource("ParticleProcessMaterial_uc35r")
 lifetime = 0.5
 one_shot = true
+trail_enabled = true
