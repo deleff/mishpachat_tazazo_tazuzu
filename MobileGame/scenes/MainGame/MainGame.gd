@@ -46,6 +46,11 @@ var family_members_on_screen: Array[String]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$TextureRect.texture = load("res://scenes/MainGame/{level}.png".format({"level": PersistentData.level}))
+	$AudioStreamPlayer.stream = load("res://sfx/{level}.mp3".format({"level": PersistentData.level}))
+	if PersistentData.level == "shire":
+		$AudioStreamPlayer.play(5)
+	else:
+		$AudioStreamPlayer.play()
 	add_child(countdown_timer)
 	countdown_timer.start(60)
 	countdown_timer.one_shot = true
@@ -59,18 +64,14 @@ func _ready():
 	if PersistentData.mode == "easy":
 		family_member_speed = 160
 		spawn_timer_timeout = 2
-		$AudioStreamPlayer.stream = load("res://sfx/easy_mode.mp3")
 	elif PersistentData.mode == "medium":
 		family_member_speed = 320
 		spawn_timer_timeout = 1.5
-		$AudioStreamPlayer.stream = load("res://sfx/medium_mode.mp3")
 	elif PersistentData.mode == "hard":
 		family_member_speed = 480
 		spawn_timer_timeout = 1
-		$AudioStreamPlayer.stream = load("res://sfx/hard_mode.mp3")
 	else:
 		print("ERROR: Unknown mode")
-	$AudioStreamPlayer.play()
 	add_child(spawn_timer)
 	spawn_timer.one_shot = false
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)

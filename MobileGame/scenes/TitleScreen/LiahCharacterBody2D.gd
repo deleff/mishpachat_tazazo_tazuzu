@@ -33,6 +33,7 @@ func _movement():
 		$WandGPUParticles2D.position.x -= 350
 		$WandGPUParticles2D.position.y -= 284
 		$WandGPUParticles2D.emitting = true
+		PersistentData.title_screen_times_tapped+=1
 	elif movement_iterations == 11:
 		$LiahSprite2D.position.y -= 120
 		$LiahSprite2D.texture = load("res://family/liah/liah.png")

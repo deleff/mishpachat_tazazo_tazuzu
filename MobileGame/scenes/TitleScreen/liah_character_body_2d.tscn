@@ -107,5 +107,5 @@ self_modulate = Color(100, 100, 100, 1)
 emitting = false
 amount = 300
 process_material = SubResource("ParticleProcessMaterial_uc35r")
-lifetime = 2.0
+lifetime = 0.5
 one_shot = true

@@ -5,11 +5,18 @@ var tiny_dance_flip: bool = false
 var tiny_dance_flip_iterations: int = 0
 var mischief_iterations: int = 0
 
+var TIMES_TAPPED: int = 0
+
 const yitzchak_scene = preload("res://scenes/TitleScreen/yitzchak_character_body_2d.tscn")
 const liah_scene = preload("res://scenes/TitleScreen/liah_character_body_2d.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if PersistentData.title_screen_times_tapped > 1:
+		get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]קל[/outline_color][/outline_size][/wave]")
+		get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]בינוני[/outline_color][/outline_size][/wave]")
+		get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]קשה[/outline_color][/outline_size][/wave]")
+
 	print("starting")
 	$EasyModeTouchScreenButton.pressed.connect(_on_easy_mode_pressed)
 	$MediumModeTouchScreenButton.pressed.connect(_on_medium_mode_pressed)
@@ -20,8 +27,7 @@ func _ready():
 		var mischief_timer = Timer.new()
 		add_child(mischief_timer)
 		mischief_timer.one_shot = false
-		mischief_timer.start(5)
-		#mischief_timer.start(.005)
+		mischief_timer.start(1)
 		mischief_timer.timeout.connect(_mischief)
 	else:
 		random_number_generator.randomize()
@@ -39,9 +45,30 @@ func _ready():
 		tiny_dancer_timer.timeout.connect(_tiny_dance)
 	$AudioStreamPlayer.play()
 
+func _process(delta):
+	if PersistentData.title_screen_times_tapped == 1:
+			get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]משפחת[/outline_color][/outline_size][/wave]")
+			get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]תזזו[/outline_color][/outline_size][/wave]")
+			get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]תזוזו[/outline_color][/outline_size][/wave]")
+	
+func _input(event):
+	if event is InputEventScreenTouch && event.is_pressed():
+		PersistentData.title_screen_times_tapped+=1
+		if PersistentData.title_screen_times_tapped == 1:
+			get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]משפחת[/outline_color][/outline_size][/wave]")
+			get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]תזזו[/outline_color][/outline_size][/wave]")
+			get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]תזוזו[/outline_color][/outline_size][/wave]")
+		elif PersistentData.title_screen_times_tapped > 1:
+			get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]קל[/outline_color][/outline_size][/wave]")
+			get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]בינוני[/outline_color][/outline_size][/wave]")
+			get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]קשה[/outline_color][/outline_size][/wave]")
+
+		
+
+
 func _choose_level():
 	random_number_generator.randomize()
-	var level = random_number_generator.randi_range(4,5)
+	var level = random_number_generator.randi_range(1,7)
 	match level:
 		1:
 			PersistentData.level = "bus"
@@ -55,6 +82,9 @@ func _choose_level():
 			PersistentData.level = "water"
 		6:
 			PersistentData.level = "park"
+		7:
+			PersistentData.level = "main_background"
+
 
 func _on_easy_mode_pressed():
 	$AudioStreamPlayer.stream = load("res://sfx/select.mp3")
@@ -84,71 +114,15 @@ func _on_hard_mode_pressed():
 	_choose_level()
 
 func _mischief():
-	if mischief_iterations % 5 == 0 && mischief_iterations != 0:
-		random_number_generator.randomize()
-		if random_number_generator.randi_range(0,1) > 0:
-			var yitzchak = yitzchak_scene.instantiate()
-			add_child(yitzchak)
-			yitzchak.position = Vector2(-80,550)
-		else:
-			var liah = liah_scene.instantiate()
-			add_child(liah)
-			liah.position = Vector2(random_number_generator.randi_range(300,1000),530)
+	if mischief_iterations == 1:
+		var liah = liah_scene.instantiate()
+		add_child(liah)
+		liah.position = Vector2(1200,530)
+	elif mischief_iterations == 4:
+		var yitzchak = yitzchak_scene.instantiate()
+		add_child(yitzchak)
+		yitzchak.position = Vector2(-80,550)
 	mischief_iterations += 1
 
 func _tiny_dance():
-	tiny_dance_flip_iterations += 1
-	if tiny_dance_flip_iterations % 5 == 0:
-		random_number_generator.randomize()
-		$TinyDancerSprite2D.texture = load(_get_family_member_sprite(random_number_generator.randi_range(0,17)))
-		if tiny_dance_flip_iterations % 2 == 0:
-			$TinyDancerSprite2D.position = Vector2(random_number_generator.randi_range(40,350),160)
-		else:
-			$TinyDancerSprite2D.position = Vector2(random_number_generator.randi_range(40,350),540)
-	if tiny_dance_flip == true:
-		$TinyDancerSprite2D.flip_h = true
-		tiny_dance_flip = false
-	else:
-		$TinyDancerSprite2D.flip_h = false
-		tiny_dance_flip = true
-
-func _get_family_member_sprite(array_number):
-	var member_name: String
-	match array_number:
-		0:
-			member_name = "res://family/adir/adir.png"
-		1:
-			member_name = "res://family/ben/ben.png"
-		2:
-			member_name = "res://family/dad/dad.png"
-		3:
-			member_name = "res://family/dassy/dassy.png"
-		4:
-			member_name = "res://family/grandma/grandma.png"
-		5:
-			member_name = "res://family/jack/jack.png"
-		6:
-			member_name = "res://family/joey/joey.png"
-		7:
-			member_name = "res://family/liah/liah.png"
-		8:
-			member_name = "res://family/meital/meital.png"
-		9:
-			member_name = "res://family/melissa/melissa.png"
-		10:
-			member_name = "res://family/michelle/michelle.png"
-		11:
-			member_name = "res://family/mom/mom.png"
-		12:
-			member_name = "res://family/ori/ori.png"
-		13:
-			member_name = "res://family/rut/rut.png"
-		14:
-			member_name = "res://family/sophie/sophie.png"
-		15:
-			member_name = "res://family/yitzchak/yitzchak.png"
-		16:
-			member_name = "res://family/zayde/zayde.png"
-		17:
-			member_name = "res://family/zevi/zevi.png"
-	return member_name
+	pass
