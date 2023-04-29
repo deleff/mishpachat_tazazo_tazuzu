@@ -1,19 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://ioelfse7m6ik"]
+[gd_scene load_steps=10 format=3 uid="uid://ioelfse7m6ik"]
 
 [ext_resource type="Script" path="res://scenes/MainGame/MainGame.gd" id="2"]
 [ext_resource type="Theme" uid="uid://csvmo7ycecrp0" path="res://fonts/new_theme.tres" id="2_fkfg5"]
-[ext_resource type="Texture2D" uid="uid://drw2n4p2wrejc" path="res://scenes/MainGame/back_button.png" id="2_gv4ad"]
 [ext_resource type="Script" path="res://scenes/MainGame/SignalMessageQueue.gd" id="4_cjflm"]
-
-[sub_resource type="Environment" id="Environment_85rjq"]
-background_mode = 3
-glow_enabled = true
-glow_normalized = true
-glow_intensity = 1.65
-glow_strength = 2.0
-glow_bloom = 1.0
-glow_hdr_threshold = 0.08
-glow_hdr_luminance_cap = 29.01
 
 [sub_resource type="Curve" id="Curve_sgtf7"]
 min_value = -360.0
@@ -52,11 +41,11 @@ scale_min = 5.0
 scale_max = 20.0
 color = Color(1, 0.113725, 0.137255, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1hv4"]
+size = Vector2(40, 15)
+
 [node name="MainGame" type="Node2D"]
 script = ExtResource("2")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_85rjq")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 modulate = Color(4, 4, 4, 1)
@@ -81,10 +70,31 @@ bbcode_enabled = true
 scroll_active = false
 
 [node name="TitleScreenTouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(0, 635)
-scale = Vector2(0.35, 0.35)
-texture_normal = ExtResource("2_gv4ad")
-texture_pressed = ExtResource("2_gv4ad")
+position = Vector2(1280, 635)
+scale = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_f1hv4")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TitleScreenTouchScreenButton"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -5.0
+offset_right = 240.0
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.18, 0.18)
+size_flags_stretch_ratio = 2.0
+theme = ExtResource("2_fkfg5")
+bbcode_enabled = true
+text = "[outline_size=20][outline_color=black]    << אחורה[/outline_color][/outline_size]"
+fit_content = true
+scroll_active = false
+custom_effects = [null]
+text_direction = 2
 
 [node name="SignalMessageQueue" type="Node" parent="."]
 script = ExtResource("4_cjflm")

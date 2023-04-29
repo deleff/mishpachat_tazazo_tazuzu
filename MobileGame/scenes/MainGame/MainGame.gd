@@ -168,7 +168,7 @@ func _on_spawn_timer_timeout():
 		if ceil(countdown_timer.time_left) > 10:
 			$TimerRichTextLabel.text = "[outline_size=20][outline_color=black] זמן שנשאר:  {time}  [/outline_color][/outline_size]".format({"time": ceil(countdown_timer.time_left)})
 		else:
-			$TimerRichTextLabel.text = "[outline_size=20][outline_color=black] זמן שנשאר:  [shake]{time}  [/shake][/outline_color][/outline_size]".format({"time": ceil(countdown_timer.time_left)})
+			$TimerRichTextLabel.text = "[outline_size=20][outline_color=black] זמן שנשאר:  [shake rate=20.0 level=50]{time}  [/shake][/outline_color][/outline_size]".format({"time": ceil(countdown_timer.time_left)})
 		random_number_generator.randomize()
 		var next_family_member_position = random_number_generator.randi_range(0,(family_members_array.size() - 1))
 		var next_family_member = family_members_array[next_family_member_position]
