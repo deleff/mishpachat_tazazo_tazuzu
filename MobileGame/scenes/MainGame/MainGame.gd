@@ -218,10 +218,12 @@ func _set_target_family_member():
 	target_name = _get_family_member_name(target_member_position,"string")
 	target_member.queue_free()
 	$SfxAudioStreamPlayer.stream = load("res://sfx/find.mp3")
+	$SfxAudioStreamPlayer.volume_db = 0
 	$SfxAudioStreamPlayer.play()
 	var target_name_mp3 = _get_family_member_name(target_member_position,"mp3")
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(2.5).timeout
 	$SfxAudioStreamPlayer.stream = load(target_name_mp3)
+	$SfxAudioStreamPlayer.volume_db = 10
 	$SfxAudioStreamPlayer.play()
 	
 func _on_wrong_person():
@@ -240,115 +242,115 @@ func _get_family_member_name(array_number, return_type):
 			if return_type == "string":
 				member_name = "אחינועם"
 			else:
-				member_name = "res://sfx/adir.mp3"
+				member_name = "res://sfx/achinoam.mp3"
 		1:
 			if return_type == "string":
 				member_name = "אדם"
 			else:
-				member_name = "res://sfx/ben.mp3"
+				member_name = "res://sfx/adam.mp3"
 		2:
 			if return_type == "string":
 				member_name = "סבתא אהובה"
 			else:
-				member_name = "res://sfx/dad.mp3"
+				member_name = "res://sfx/ahuva.mp3"
 		3:
 			if return_type == "string":
 				member_name = "אביגיל"
 			else:
-				member_name = "res://sfx/dassy.mp3"
+				member_name = "res://sfx/avigail.mp3"
 		4:
 			if return_type == "string":
 				member_name = "ברק"
 			else:
-				member_name = "res://sfx/grandma.mp3"
+				member_name = "res://sfx/barak.mp3"
 		5:
 			if return_type == "string":
 				member_name = "דני"
 			else:
-				member_name = "res://sfx/jack.mp3"
+				member_name = "res://sfx/danni.mp3"
 		6:
 			if return_type == "string":
 				member_name = "פנטי"
 			else:
-				member_name = "res://sfx/joey.mp3"
+				member_name = "res://sfx/fenti.mp3"
 		7:
 			if return_type == "string":
 				member_name = "סבא גדי"
 			else:
-				member_name = "res://sfx/liah.mp3"
+				member_name = "res://sfx/gadi.mp3"
 		8:
 			if return_type == "string":
 				member_name = "גאי"
 			else:
-				member_name = "res://sfx/meital.mp3"
+				member_name = "res://sfx/guy.mp3"
 		9:
 			if return_type == "string":
 				member_name = "ליאה"
 			else:
-				member_name = "res://sfx/melissa.mp3"
+				member_name = "res://sfx/liah.mp3"
 		10:
 			if return_type == "string":
 				member_name = "ליבי"
 			else:
-				member_name = "res://sfx/michelle.mp3"
+				member_name = "res://sfx/libbi.mp3"
 		11:
 			if return_type == "string":
 				member_name = "לירון"
 			else:
-				member_name = "res://sfx/mom.mp3"
+				member_name = "res://sfx/liron.mp3"
 		12:
 			if return_type == "string":
 				member_name = "מעוז"
 			else:
-				member_name = "res://sfx/ori.mp3"
+				member_name = "res://sfx/maoz.mp3"
 		13:
 			if return_type == "string":
 				member_name = "מסי"
 			else:
-				member_name = "res://sfx/rut.mp3"
+				member_name = "res://sfx/messi.mp3"
 		14:
 			if return_type == "string":
 				member_name = "מורן"
 			else:
-				member_name = "res://sfx/sophie.mp3"
+				member_name = "res://sfx/moran.mp3"
 		15:
 			if return_type == "string":
 				member_name = "נתן"
 			else:
-				member_name = "res://sfx/yitzchak.mp3"
+				member_name = "res://sfx/natan.mp3"
 		16:
 			if return_type == "string":
 				member_name = "אורנית"
 			else:
-				member_name = "res://sfx/zayde.mp3"
+				member_name = "res://sfx/oranit.mp3"
 		17:
 			if return_type == "string":
 				member_name = "סיון"
 			else:
-				member_name = "res://sfx/zevi.mp3"
+				member_name = "res://sfx/sivan.mp3"
 		18:
 			if return_type == "string":
 				member_name = "טלי"
 			else:
-				member_name = "res://sfx/zevi.mp3"
+				member_name = "res://sfx/tali.mp3"
 		19:
 			if return_type == "string":
 				member_name = "תהילה"
 			else:
-				member_name = "res://sfx/zevi.mp3"
+				member_name = "res://sfx/tehilla.mp3"
 		20:
 			if return_type == "string":
 				member_name = "יפית"
 			else:
-				member_name = "res://sfx/zevi.mp3"
+				member_name = "res://sfx/yafit.mp3"
 		21:
 			if return_type == "string":
 				member_name = "יצחק"
 			else:
-				member_name = "res://sfx/zevi.mp3"
+				member_name = "res://sfx/yitzchak.mp3"
 		22:
 			if return_type == "string":
 				member_name = "יוסי"
 			else:
-				member_name = "res://sfx/zevi.mp3"
+				member_name = "res://sfx/yossi.mp3"
 	return member_name

@@ -10,7 +10,6 @@ scale = Vector2(0.3, 0.3)
 script = ExtResource("1_2cib5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.72549, 0.72549, 0.72549, 1)
 texture = ExtResource("2_eir52")
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
