@@ -94,8 +94,8 @@ func _on_you_win():
 	else:
 		spawn_timer.queue_free()
 		$SfxAudioStreamPlayer.queue_free()
-		$RichTextLabel.text = "[outline_size=4][outline_color=black] מצאתם את {target_name} !!! [/outline_color][/outline_size]".format({"target_name": target_name})
-		$RichTextLabel.position = Vector2(250,330)
+		$RichTextLabel.text = "[right][outline_size=4][outline_color=black] מצאתם את {target_name} !!! [/outline_color][/outline_size][/right]".format({"target_name": target_name})
+		$RichTextLabel.position = Vector2(200,330)
 		$AudioStreamPlayer.stream = load("res://sfx/win.mp3")
 		$AudioStreamPlayer.play()
 		var firework_timer = Timer.new()
@@ -191,6 +191,7 @@ func _on_spawn_timer_timeout():
 
 func _on_countdown_timer_timeout():
 	if PersistentData.mode == "hard":
+		$SfxAudioStreamPlayer.volume_db = 10
 		$SfxAudioStreamPlayer.stream = load("res://sfx/times_up.mp3")
 		$SfxAudioStreamPlayer.play()
 		if score >= PersistentData.high_score:
@@ -207,8 +208,8 @@ func _on_countdown_timer_timeout():
 		spawn_timer.stop()
 		spawn_timer.queue_free()
 		$TimerRichTextLabel.queue_free()
-		$RichTextLabel.position = Vector2(200,330)
-		$RichTextLabel.text = "[outline_size=4][outline_color=black]Time's up! \nYour score: {your_score} seconds! \nCurrent high score: {high_score} seconds! [/outline_color][/outline_size]".format({"your_score": score, "high_score": PersistentData.high_score})
+		$RichTextLabel.position = Vector2(200,230)
+		$RichTextLabel.text = "[right][outline_size=25][outline_color=black] נגמר הזמן \n עברו {your_score} שניות!\n הזמן הכי טוב: {high_score} שניות [/outline_color][/outline_size][/right]".format({"your_score": score, "high_score": PersistentData.high_score})
 
 
 func _set_target_family_member():
@@ -227,6 +228,7 @@ func _set_target_family_member():
 	$SfxAudioStreamPlayer.play()
 	
 func _on_wrong_person():
+	$SfxAudioStreamPlayer.volume_db = 5
 	random_number_generator.randomize()
 	var wrong_person_mp3 = random_number_generator.randi_range(0,1)
 	if wrong_person_mp3 == 1:

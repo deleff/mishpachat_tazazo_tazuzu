@@ -152,3 +152,5 @@ offset_right = 1364.0
 offset_bottom = 656.0
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("3_66obu")
+
+[node name="SfxAudioStreamPlayer" type="AudioStreamPlayer" parent="."]

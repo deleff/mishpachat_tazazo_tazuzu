@@ -2,7 +2,7 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://l0apkou12oym"
+uid="uid://33xf8m3gcah8"
 path="res://.godot/imported/mishpachat_tazazo_tazuzu.mp3-1b8ada7cb1bffa4fa1f7f779e613e068.mp3str"
 
 [deps]
@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/mishpachat_tazazo_tazuzu.mp3-1b8ada7cb1bffa4f
 [params]
 
 loop=false
-loop_offset=0
-bpm=0
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

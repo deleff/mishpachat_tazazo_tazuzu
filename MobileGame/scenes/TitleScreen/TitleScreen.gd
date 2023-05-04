@@ -11,11 +11,12 @@ const liah_scene = preload("res://scenes/TitleScreen/liah_character_body_2d.tscn
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if PersistentData.show_title == true:
-		get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]   קל  [/outline_color][/outline_size][/wave]")
-		get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black] בינוני  [/outline_color][/outline_size][/wave]")
-		get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black] קשה  [/outline_color][/outline_size][/wave]")
+		get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]      קל[/outline_color][/outline_size][/wave]")
+		get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]    בינוני[/outline_color][/outline_size][/wave]")
+		get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]    קשה[/outline_color][/outline_size][/wave]")
 
 	print("starting")
+	$SfxAudioStreamPlayer.stream = load("res://sfx/mishpachat_tazazo_tazuzu.mp3")
 	$EasyModeTouchScreenButton.pressed.connect(_on_easy_mode_pressed)
 	$MediumModeTouchScreenButton.pressed.connect(_on_medium_mode_pressed)
 	$HardModeTouchScreenButton.pressed.connect(_on_hard_mode_pressed)
@@ -47,14 +48,15 @@ func _input(event):
 	if event is InputEventScreenTouch && event.is_pressed():
 		PersistentData.title_screen_times_tapped+=1
 		if PersistentData.show_title == false:
+			$SfxAudioStreamPlayer.play()
 			get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black] משפחת  [/outline_color][/outline_size][/wave]")
 			get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]    תזזו  [/outline_color][/outline_size][/wave]")
 			get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]    תזוזו  [/outline_color][/outline_size][/wave]")
 			PersistentData.show_title = true
 		elif PersistentData.show_title == true:
-			get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]   קל  [/outline_color][/outline_size][/wave]")
-			get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black] בינוני  [/outline_color][/outline_size][/wave]")
-			get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black] קשה  [/outline_color][/outline_size][/wave]")
+			get_node("EasyModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]      קל[/outline_color][/outline_size][/wave]")
+			get_node("MediumModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]    בינוני[/outline_color][/outline_size][/wave]")
+			get_node("HardModeTouchScreenButton/RichTextLabel").set_text("[wave amp=50.0 freq=5.0][outline_size=30][outline_color=black]    קשה[/outline_color][/outline_size][/wave]")
 
 		
 func _choose_level():
@@ -118,6 +120,8 @@ func _mischief():
 		get_node("MediumModeTouchScreenButton/GPUParticles2D").process_material.color = random_color
 		get_node("MediumModeTouchScreenButton/GPUParticles2D").emitting = true
 	elif mischief_iterations == 12:	
+		if PersistentData.show_title == false:
+			$SfxAudioStreamPlayer.play()
 		PersistentData.show_title = true
 	mischief_iterations += 1
 	print("mischief_iterations: ", mischief_iterations)

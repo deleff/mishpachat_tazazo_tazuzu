@@ -18,6 +18,7 @@ func _ready():
 	$GPUParticles2D.process_material.color = random_color
 	var random_color_wand = Color(randf(), randf(), randf())
 	$WandGPUParticles2D.process_material.color = random_color
+	$GPUParticles2D.position.y-=150
 	$GPUParticles2D.emitting = true
 	await get_tree().create_timer(1).timeout
 	$LiahSprite2D.flip_h = true
