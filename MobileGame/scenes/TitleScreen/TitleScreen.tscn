@@ -65,7 +65,7 @@ size = Vector2(30, 10)
 script = ExtResource("1")
 
 [node name="EasyModeTouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(720, 160)
+position = Vector2(770, 160)
 scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_1hth7")
 
@@ -89,7 +89,7 @@ custom_effects = [null]
 text_direction = 2
 
 [node name="MediumModeTouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(720, 280)
+position = Vector2(770, 280)
 scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_kteh2")
 
@@ -126,7 +126,7 @@ trail_lifetime = 0.01
 trail_sections = 2
 
 [node name="HardModeTouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(720, 400)
+position = Vector2(770, 400)
 scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_6gm3d")
 

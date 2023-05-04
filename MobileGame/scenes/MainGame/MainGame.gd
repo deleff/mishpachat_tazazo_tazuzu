@@ -90,6 +90,9 @@ func _on_you_win():
 	if PersistentData.mode == "hard":
 		countdown_timer.start(ceil(countdown_timer.time_left) + 5)
 		score+=5
+		$SfxAudioStreamPlayer.stream = load("res://sfx/correct.mp3")
+		$SfxAudioStreamPlayer.play()
+		await get_tree().create_timer(0.6).timeout
 		_set_target_family_member()
 	else:
 		spawn_timer.queue_free()
