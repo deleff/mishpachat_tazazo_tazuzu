@@ -285,7 +285,7 @@ func _get_family_member_name(array_number, return_type):
 				member_name = "res://sfx/gadi.mp3"
 		8:
 			if return_type == "string":
-				member_name = "גאי"
+				member_name = "גיא"
 			else:
 				member_name = "res://sfx/guy.mp3"
 		9:
